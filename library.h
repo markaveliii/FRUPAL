@@ -20,13 +20,20 @@ struct item{
   int fill;
 };
 
+// treasure chests
+struct treasure{
+  int whiffle;
+  item* loot;
+};
+
 // grovnick
 struct cell{
   char tile;
   int drain;
-  char symbol;
   bool visible;
+  char symbol;
   obstacle type;
   item unit;
+  treasure chest;
   hero player;
 };
