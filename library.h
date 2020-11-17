@@ -2,15 +2,6 @@
 #include <ncurses.h>
 #include <fstream>
 
-// player
-struct hero{
-  int energy;
-  int whiffle;
-  int x_pos;
-  int y_pos;
-  tool inventory[100];
-};
-
 struct obstacle{
   char name[100];
   char tool[100];
@@ -34,6 +25,15 @@ struct treasure{
   int whiffle;
   food loot1[100];
   tool loot2[100];
+};
+
+// player
+struct hero{
+  int energy;
+  int whiffle;
+  int x_pos;
+  int y_pos;
+  tool inventory[100];
 };
 
 // grovnick
