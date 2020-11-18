@@ -1,8 +1,6 @@
 #include "library.h"
 #include <stdlib.h>
-#include <time.h>
+#include <cstring>
 
-static int objLocation[2][128*128];
-
-int mapExport(const char* map, cell island[128][128]);
-int mapImport(const char* map, cell island[128][128]);
+int mapExport(const char* map, cell island[128][128], obstacle obsList[100], food foodList[100], tool toolList[100], treasure chestList[100]);
+int mapImport(const char* map, cell island[128][128], obstacle obsList[100], food foodList[100], tool toolList[100], treasure chestList[100]);
