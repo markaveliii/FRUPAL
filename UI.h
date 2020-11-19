@@ -2,4 +2,5 @@
 #include <iostream>
 
 int movement(struct cell &, struct hero &);
-int obstacle(struct cell &, struct hero &);
+int purchase(struct cell &);
+int cursor(WINDOW *w);

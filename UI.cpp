@@ -20,12 +20,16 @@ int movement(struct cell &map, struct hero &p)
             }
             //Handles obstacles
             if(dest.symbol == '!'){
-                p.energy -= obstacle(dest, p);
+                p.energy -= dest.obsTyp.drain;
             }
+            else{
             p.energy -= dest.drain;
-            if(dest.item.exists)
+            }
+            if(dest.item.exists){
             //Handle item
                 p.cash -= purchase(dest.item);
+            }
+
             //update player location to (y,x-1)
             --p.x_pos;
             break;
@@ -42,12 +46,17 @@ int movement(struct cell &map, struct hero &p)
             }
             //Handles obstacles
             if(dest.symbol == '!'){
-                p.energy -= obstacle(dest, p);
+                p.energy -= dest.obsTyp.drain;
             }
+            else{
             p.energy -= dest.drain;
-            if(dest.item.exists)
+            }
+
+            if(dest.item.exists){
             //Handle item
                 p.cash -= purchase(dest.item);
+            }
+
             //update player location to (y-1,x)
             --p.y_pos;
             break;
@@ -65,12 +74,17 @@ int movement(struct cell &map, struct hero &p)
             }
             //Handles obstacles
             if(dest.symbol == '!'){
-                p.energy -= obstacle(dest, p);
+                p.energy -= dest.obsTyp.drain;
             }
+            else{
             p.energy -= dest.drain;
-            if(dest.item.exists)
+            }
+
+            if(dest.item.exists){
             //Handle item
                 p.cash -= purchase(dest.item);
+            }
+
             //update player location to (y,x+1)
             ++p.x_pos;
             break;
@@ -88,32 +102,22 @@ int movement(struct cell &map, struct hero &p)
             }
             //Handles obstacles
             if(dest.symbol == '!'){
-                p.energy -= obstacle(dest, p);
+                p.energy -= dest.obsTyp.drain;
             }
-            p.energy -= dest.drain;
-            if(dest.item.exists)
+            else{
+                p.energy -= dest.drain;
+            }
+            if(dest.item.exists){
             //Handle item
                 p.cash -= purchase(dest.item);
+            }
+
             //update player location to (y+1,x)
             ++p.y_pos;
             break;
 
     } 
     return 1;
-}
-
-int obstacle(struct cell &dest, struct hero &p)
-{
-    int energy;
-    switch(dest.type.name)
-    {
-        case "tree":
-            break;
-        case "boulder":
-            break;
-
-    }
-    return energy;
 }
 
 int purchase(struct cell &dest)
