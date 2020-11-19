@@ -1,4 +1,4 @@
-#include <curses.h>
+#include "UI.h"
 
 int cursor(WINDOW *win)
 {

@@ -3,3 +3,4 @@
 
 int movement(struct cell &, struct hero &);
 int purchase(struct cell &);
+int cursor(WINDOW *w);
