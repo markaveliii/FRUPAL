@@ -12,26 +12,19 @@ using namespace std;
 #define WALL       5
 #define GOAL       6
 
-int mapgen(cell island[128][128]);
+int mapgen(cell island[128][128], hero player);
 
-int mapgen(cell island[128][128])
+int mapgen(cell island[128][128], hero player)
 {
     int lengthx;
     int lengthy;
-    int playerx = 0;
-    int playery = 0;
+    int playerx = player.x_pos;
+    int playery = player.y_pos;
     lengthx = COLS / 4;
     lengthx = lengthx * 3;
     lengthy = LINES / 4;
     lengthy = lengthy * 3;
-    for(int x = 0; x < 129; x++){
-        for(int y = 0; y < 129, y++){
-            if(island[x][y].symbol == "@"){
-                playerx = x;
-                playery = y;
-            }
-        }
-    }
+    
 
     start_color();
     init_pair(EMPTY, COLOR_BLACK, COLOR_BLACK);
@@ -54,34 +47,36 @@ int mapgen(cell island[128][128])
         for(int y = playery - lengthy; y < playery + legnthy +1, y++){
             if(-1 < x && x < 129 && -1 < y && y < 129){
                 if(island[x][y].visible){
-                    if(island[x][y].tile == "g"){
-                        attron(COLOR_PAIR(MEADOW));
-                        mvprintw(y,x,island[x][y].symbol); 
-                        attroff(COLOR_PAIR(MEADOW));
+                    switch(island[x][y].tile){
+                        case "g":
+                            attron(COLOR_PAIR(MEADOW));
+                            mvprintw(y,x,island[x][y].symbol); 
+                            attroff(COLOR_PAIR(MEADOW));
+                            break;
+                        case "s":
+                            attron(COLOR_PAIR(SWAMP));
+                            mvprintw(y,x,island[x][y].symbol); 
+                            attroff(COLOR_PAIR(SWAMP));
+                            break;
+                        case "b":
+                            attron(COLOR_PAIR(WATER));
+                            mvprintw(y,x,island[x][y].symbol); 
+                            attroff(COLOR_PAIR(WATER));
+                            break;
+                        case "w":
+                            attron(COLOR_PAIR(WALL));
+                            mvprintw(y,x,island[x][y].symbol); 
+                            attroff(COLOR_PAIR(WALL));
+                            break;
+                        case "R":
+                            attron(COLOR_PAIR(GOAL));
+                            mvprintw(y,x,island[x][y].symbol); 
+                            attroff(COLOR_PAIR(GOAL));
+                            break;
                     }
-                    if(island[x][y].tile == "s"){
-                        attron(COLOR_PAIR(SWAMP));
-                        mvprintw(y,x,island[x][y].symbol); 
-                        attroff(COLOR_PAIR(SWAMP));
-                    }
-                    if(island[x][y].tile == "b"){
-                        attron(COLOR_PAIR(WATER));
-                        mvprintw(y,x,island[x][y].symbol); 
-                        attroff(COLOR_PAIR(WATER));
-                    }
-                    if(island[x][y].tile == "w"){
-                        attron(COLOR_PAIR(WALL));
-                        mvprintw(y,x,island[x][y].symbol); 
-                        attroff(COLOR_PAIR(WALL));
-                    }
-                    if(island[x][y].tile == "R"){
-                        attron(COLOR_PAIR(GOAL));
-                        mvprintw(y,x,island[x][y].symbol); 
-                        attroff(COLOR_PAIR(GOAL));
-                    }
-                    if(island[x][y].symbol == "@"){
+                    if(x == playerx && y == playery){
                         attron(COLOR_PAIR(PLAYER));
-                        mvprintw(y,x,island[x][y].symbol); 
+                        mvprintw(y,x,"@"); 
                         attroff(COLOR_PAIR(PLAYER));
                     }
                 }
