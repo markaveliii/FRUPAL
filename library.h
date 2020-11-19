@@ -43,8 +43,9 @@ struct cell{
   bool visible;
   bool exist;
   char symbol;
-  int obsType;
-  int foodUnit;
-  int toolDevice;
-  int treasureChest;
+  int objSelect;
+  obstacle* obsType;
+  food* foodUnit;
+  tool* toolDevice;
+  treasure* treasureChest;
 };

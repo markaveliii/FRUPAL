@@ -239,16 +239,32 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
     
     switch(count){
       case 1:
-        island[objY][objX].obsType = select;
+        island[objY][objX].objSelect = select;
+        island[objY][objX].obsType = &obsList[select];
+        island[objY][objX].foodUnit = NULL;
+        island[objY][objX].toolDevice = NULL;
+        island[objY][objX].treasureChest = NULL;
         break;
       case 2:
-        island[objY][objX].foodUnit = select;
+        island[objY][objX].objSelect = select;
+        island[objY][objX].foodUnit = &foodList[select];
+        island[objY][objX].obsType = NULL;
+        island[objY][objX].toolDevice = NULL;
+        island[objY][objX].treasureChest = NULL;
         break;
       case 3:
-        island[objY][objX].toolDevice = select;
+        island[objY][objX].objSelect = select;
+        island[objY][objX].toolDevice = &toolList[select];
+        island[objY][objX].obsType = NULL;
+        island[objY][objX].foodUnit = NULL;
+        island[objY][objX].treasureChest = NULL;
         break;
       case 4:
-        island[objY][objX].treasureChest = select;
+        island[objY][objX].objSelect = select;
+        island[objY][objX].treasureChest = &chestList[select];
+        island[objY][objX].obsType = NULL;
+        island[objY][objX].foodUnit = NULL;
+        island[objY][objX].toolDevice = NULL;
         break;
     }
   }
@@ -287,22 +303,22 @@ int mapImport(const char* map, cell island[128][128], obstacle obsList[100], foo
       switch(island[i][j].symbol){
         case '!':
           objLocation[0][x] = 1;
-          objLocation[1][x] = island[i][j].obsType;
+          objLocation[1][x] = island[i][j].objSelect;
           ++x; 
           break;
         case 'F':
           objLocation[0][x] = 2;
-          objLocation[1][x] = island[i][j].foodUnit;
+          objLocation[1][x] = island[i][j].objSelect;
           ++x;
           break;
         case 'T':
           objLocation[0][x] = 3;
-          objLocation[1][x] = island[i][j].toolDevice;
+          objLocation[1][x] = island[i][j].objSelect;
           ++x;
           break;
         case '$':
           objLocation[0][x] = 4;
-          objLocation[1][x] = island[i][j].treasureChest;
+          objLocation[1][x] = island[i][j].objSelect;
           ++x;
           break;
       }
