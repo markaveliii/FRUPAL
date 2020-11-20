@@ -30,7 +30,7 @@ struct treasure{
 // player
 struct hero{
   int energy;
-  int whiffle;
+  int cash;
   int x_pos;
   int y_pos;
   tool inventory[100];

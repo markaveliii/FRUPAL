@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <ncurses.h>
-#include <libary.h>
+#include "library.h"
 
 using namespace std;
 #define EMPTY      0
@@ -36,7 +36,7 @@ int mapgen(cell island[128][128], hero player)
     init_pair(GOAL, COLOR_BLACK, COLOR_CYAN);
 
     for(int x = 0; x < lengthx + 1; x++){
-        for(int y = 0; y < lengthy + 1, y++){
+        for(int y = 0; y < lengthy + 1; y++){
             attron(COLOR_PAIR(EMPTY));
             mvprintw(y,x," "); 
             attroff(COLOR_PAIR(EMPTY));   
@@ -44,31 +44,31 @@ int mapgen(cell island[128][128], hero player)
     }
 
     for(int x = playerx - lengthx; x < playerx + lengthx + 1; x++){
-        for(int y = playery - lengthy; y < playery + legnthy +1, y++){
+        for(int y = playery - lengthy; y < playery + lengthy +1; y++){
             if(-1 < x && x < 129 && -1 < y && y < 129){
                 if(island[x][y].visible){
                     switch(island[x][y].tile){
-                        case "g":
+                        case 'g':
                             attron(COLOR_PAIR(MEADOW));
                             mvprintw(y,x,island[x][y].symbol); 
                             attroff(COLOR_PAIR(MEADOW));
                             break;
-                        case "s":
+                        case 's':
                             attron(COLOR_PAIR(SWAMP));
                             mvprintw(y,x,island[x][y].symbol); 
                             attroff(COLOR_PAIR(SWAMP));
                             break;
-                        case "b":
+                        case 'b':
                             attron(COLOR_PAIR(WATER));
                             mvprintw(y,x,island[x][y].symbol); 
                             attroff(COLOR_PAIR(WATER));
                             break;
-                        case "w":
+                        case 'w':
                             attron(COLOR_PAIR(WALL));
                             mvprintw(y,x,island[x][y].symbol); 
                             attroff(COLOR_PAIR(WALL));
                             break;
-                        case "R":
+                        case 'R':
                             attron(COLOR_PAIR(GOAL));
                             mvprintw(y,x,island[x][y].symbol); 
                             attroff(COLOR_PAIR(GOAL));
