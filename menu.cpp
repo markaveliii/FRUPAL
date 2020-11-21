@@ -19,12 +19,16 @@ void display_EW(WINDOW * GAME_MENU, hero & player) {
 void display_cell(WINDOW * GAME_MENU, cell c){
   int x = 2;
   int y = 1;
+  
+  if(!c.visible)
+      return;
+ 
   wmove(GAME_MENU, y, x);
   wclrtoeol(GAME_MENU);
   switch(c.symbol)
   {
     case '$':
-        wprintw(GAME_MENU, ">TREASURE!!!<");
+       wprintw(GAME_MENU, ">TREASURE!!!<");
         break;
 
     case 'R':
@@ -43,17 +47,29 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         break;
 
     case 'T':
-        wprintw(GAME_MENU,">TOOL<");
-
+        wprintw(GAME_MENU, ">TOOL: %s<", c.toolDevice->name);
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, ">COST: %s<", c.toolDevice->cost);
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, "%s", c.toolDevice->desc);
+        
         break;
 
     case '!':
-        wprintw(GAME_MENU,">OBSTACLE<");
+        wprintw(GAME_MENU, ">OBSTACLE: %s<", c.obsType->name);
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, ">ENERGY DRAIN: %s<", c.obsType->drain);
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, "TOOL NEEDED: %s", c.obsType->tool);
 
         break;
 
     case '?':
-        wprintw(GAME_MENU,">CLUE<");
+        wprintw(GAME_MENU,"CLUE");
         break;
 
     case 'S':

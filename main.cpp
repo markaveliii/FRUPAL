@@ -2,23 +2,13 @@
 #include <ncurses.h>
 #include "library.h"
 #include "menu.cpp"
+#include "UI.h"
 
 using namespace std;
 
 int main(){
   bool end = false; // flag to turn game off
   int input;        // user input
-  food f;
-  f.cost = 10;
-  f.fill = 5;
-  
-  cell c;
-  c.foodUnit = &f;
-  c.symbol = 'T';
-  hero p1;
-  p1.cash = 100;
-  p1.energy = 100;
-
   initscr();
 
   keypad(stdscr, true);
@@ -32,7 +22,7 @@ int main(){
   while(!end){
     switch((input = getch())){
       // end game
-      case KEY_END:
+      case KEY_BACKSPACE:
         end = true;
         break;
 

@@ -1,6 +1,6 @@
 #include "UI.h"
 
-int movement(struct cell &map, struct hero &p)
+int movement(cell &map, hero &p)
 {
     noecho();
     keypad(stdscr, TRUE);
@@ -120,7 +120,7 @@ int movement(struct cell &map, struct hero &p)
     return 1;
 }
 
-int purchase(struct cell &dest)
+int purchase(cell &dest)
 {
     int cost;
     switch(dest.unit.name)

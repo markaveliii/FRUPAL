@@ -1,6 +1,6 @@
 #include "UI.h"
 
-int cursor(WINDOW *win)
+int cursor(WINDOW * win, WINDOW * GAME_MENU, cell * map)
 {
     initscr();
     curs_set(2);
@@ -8,12 +8,13 @@ int cursor(WINDOW *win)
     noecho();
     keypad(win, TRUE);
     cbreak();
+
+    int input;
     int x = COLS/2;
     int y = LINES/2;
-    wmove(win, y, x);
-    int input;
+    cell dest;
 
-    do{
+    wmove(win, y, x);
     input = getch();
     switch(input)
     {
@@ -39,10 +40,12 @@ int cursor(WINDOW *win)
             break;
 
     }
+
+
     wmove(win, y, x);
+    dest = map[y][x];
+    display_cell(GAME_MENU, dest);
     refresh();
-    }while(input != 'q');
-    endwin();
     
     return 0;
 }
