@@ -3,7 +3,7 @@
 using namespace std;
 
 // load map into game
-int mapExport(const char* map, cell island[128][128], obstacle obsList[100], food foodList[100], tool toolList[100], treasure chestList[100]){
+int mapExport(const char* map, cell island[128][128], obstacle obsList[100], food foodList[100], tool toolList[100], treasure chestList[100], hero& player){
   ifstream file;
   file.open(map);
 
@@ -73,6 +73,10 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
           objLocation[0][x] = i;
           objLocation[1][x] = j;
           ++x;
+          break;
+        case '@':
+          player.x_pos = j;
+          player.y_pos = i;
           break;
       }
     }
