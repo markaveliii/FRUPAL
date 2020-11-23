@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <ncurses.h>
 #include <fstream>
