@@ -42,10 +42,15 @@ int cursor(WINDOW * win, WINDOW * GAME_MENU, cell * map)
     }
 
 
-    wmove(win, y, x);
+    display_cursor(win, curs);
     dest = map[y][x];
     display_cell(GAME_MENU, dest);
     refresh();
     
     return 0;
+}
+
+void display_cursor(WINDOW * win, cursor curs)
+{
+    wmove(win, y, x);
 }
