@@ -1,6 +1,7 @@
 #include <curses.h>
 #include <iostream>
+#include "library.h"
 
-int movement(struct cell &, struct hero &);
-int purchase(struct cell &);
+int movement(cell &, hero &);
+int purchase(cell &);
 int cursor(WINDOW *w);

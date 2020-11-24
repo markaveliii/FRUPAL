@@ -1,6 +1,6 @@
 #include "UI.h"
 
-int movement(struct cell &map, struct hero &p)
+int movement(cell &map, hero &p)
 {
     noecho();
     keypad(stdscr, TRUE);
@@ -12,7 +12,7 @@ int movement(struct cell &map, struct hero &p)
         case 1:
             if(p.x_pos == 0)
                 return 0;
-            struct cell dest = map[p.y_pos][p.x_pos - 1];
+            cell dest = map[p.y_pos][p.x_pos - 1];
             //Returns on failure if there's a wall and consumes energy.
             if(dest.type == 'w' || dest.tile == 'b'){
                 --p.energy;
@@ -38,7 +38,7 @@ int movement(struct cell &map, struct hero &p)
         case 2:
             if(p.y_pos == 0)
                 return 0;
-            struct cell dest = map[p.y_pos - 1][p.x_pos];
+            cell dest = map[p.y_pos - 1][p.x_pos];
             //Returns on failure if there's a wall and consumes energy.
             if(dest.type == 'w' || dest.tile == 'b'){
                 --p.energy;
@@ -65,7 +65,7 @@ int movement(struct cell &map, struct hero &p)
         case 3:
             if(p.x_pos == COLS)
                 return 0;
-            struct cell dest  map[p.y_pos][p.x_pos + 1];
+            cell dest  map[p.y_pos][p.x_pos + 1];
 
             //Returns on failure if there's a wall and consumes energy.
             if(dest.type == 'w' || dest.tile == 'b'){
@@ -93,7 +93,7 @@ int movement(struct cell &map, struct hero &p)
         case 4:
             if(p.y_pos == LINES)
                 return 0;
-            struct cell dest  map[p.y_pos + 1][p.x_pos];
+            cell dest  map[p.y_pos + 1][p.x_pos];
 
             //Returns on failure if there's a wall and consumes energy.
             if(dest.type == 'w' || dest.tile == 'b'){
@@ -120,7 +120,7 @@ int movement(struct cell &map, struct hero &p)
     return 1;
 }
 
-int purchase(struct cell &dest)
+int purchase(cell &dest)
 {
     int cost;
     switch(dest.unit.name)
