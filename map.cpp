@@ -1,7 +1,4 @@
-#include <iostream>
-#include <cmath>
-#include <ncurses.h>
-#include "library.h"
+#include "map.h"
 
 using namespace std;
 #define EMPTY      0
@@ -12,8 +9,6 @@ using namespace std;
 #define WALL       5
 #define GOAL       6
 
-int mapgen(cell island[128][128], hero player);
-
 int mapgen(cell island[128][128], hero player)
 {
     int lengthx;
@@ -22,8 +17,7 @@ int mapgen(cell island[128][128], hero player)
     int playery = player.y_pos;
     lengthx = COLS / 4;
     lengthx = lengthx * 3;
-    lengthy = LINES / 4;
-    lengthy = lengthy * 3;
+    lengthy = LINES;
     
 
     start_color();
@@ -46,40 +40,75 @@ int mapgen(cell island[128][128], hero player)
     for(int x = playerx - lengthx; x < playerx + lengthx + 1; x++){
         for(int y = playery - lengthy; y < playery + lengthy +1; y++){
             if(-1 < x && x < 129 && -1 < y && y < 129){
-                if(island[x][y].visible){
+                //if(island[x][y].visible){
                     switch(island[x][y].tile){
                         case 'g':
                             attron(COLOR_PAIR(MEADOW));
-                            mvprintw(y,x,island[x][y].symbol); 
+                            switch(island[x][y].symbol){
+                                case '/':
+                                    mvaddch(y,x,' ');
+                                    break;
+                                default:
+                                    mvaddch(y,x,island[x][y].symbol);
+                                    break;  
+                            }
                             attroff(COLOR_PAIR(MEADOW));
                             break;
                         case 's':
                             attron(COLOR_PAIR(SWAMP));
-                            mvprintw(y,x,island[x][y].symbol); 
+                            switch(island[x][y].symbol){
+                                case '/':
+                                    mvaddch(y,x,' ');
+                                    break;
+                                default:
+                                    mvaddch(y,x,island[x][y].symbol);
+                                    break;  
+                            }
                             attroff(COLOR_PAIR(SWAMP));
                             break;
                         case 'b':
                             attron(COLOR_PAIR(WATER));
-                            mvprintw(y,x,island[x][y].symbol); 
+                            switch(island[x][y].symbol){
+                                case '/':
+                                    mvaddch(y,x,' ');
+                                    break;
+                                default:
+                                    mvaddch(y,x,island[x][y].symbol);
+                                    break;  
+                            } 
                             attroff(COLOR_PAIR(WATER));
                             break;
                         case 'w':
                             attron(COLOR_PAIR(WALL));
-                            mvprintw(y,x,island[x][y].symbol); 
+                            switch(island[x][y].symbol){
+                                case '/':
+                                    mvaddch(y,x,' ');
+                                    break;
+                                default:
+                                    mvaddch(y,x,island[x][y].symbol);
+                                    break;  
+                            } 
                             attroff(COLOR_PAIR(WALL));
                             break;
                         case 'R':
                             attron(COLOR_PAIR(GOAL));
-                            mvprintw(y,x,island[x][y].symbol); 
+                            switch(island[x][y].symbol){
+                                case '/':
+                                    mvaddch(y,x,' ');
+                                    break;
+                                default:
+                                    mvaddch(y,x,island[x][y].symbol);
+                                    break;  
+                            } 
                             attroff(COLOR_PAIR(GOAL));
                             break;
                     }
                     if(x == playerx && y == playery){
                         attron(COLOR_PAIR(PLAYER));
-                        mvprintw(y,x,"@"); 
+                        mvaddch(y,x,'@'); 
                         attroff(COLOR_PAIR(PLAYER));
                     }
-                }
+                //}
             }
         }
     }
