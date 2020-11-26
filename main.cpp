@@ -24,7 +24,6 @@ int main(){
   tool toolList[100];
   treasure chestList[100];
   hero player;
-
   initscr();
 
   if (has_colors() == FALSE) {
@@ -60,7 +59,9 @@ int main(){
   init_pair(GOAL, COLOR_BLACK, COLOR_CYAN);
   //WINDOW * GAME_MENU = create_game_menu();
   mapgen(kingdom, player);
-
+  WINDOW *GW = create_game_menu();
+    display_EW(GW, player);
+    wrefresh(GW);
   keypad(stdscr, true);
   noecho();
 
@@ -87,7 +88,8 @@ int main(){
         
         break;
     }
-    refresh();
+    display_EW(GW, player);
+    wrefresh(GW);
   }
 
   // close window
