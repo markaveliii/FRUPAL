@@ -3,6 +3,7 @@
 #include "map.h"
 #include "maploader.h"
 #include "menu.h"
+#include "UI.h"
 
 using namespace std;
 #define EMPTY      0
@@ -38,6 +39,16 @@ int main(){
     exit(1);
   }
 
+  cout << player.x_pos;
+  cout << "\n";
+  cout << player.y_pos;
+  cout << "\n";
+/*
+  cout << COLS;
+  cout << "\n";
+  cout << LINES;
+  cout << "\n";
+*/
   
   start_color();
   init_pair(EMPTY, COLOR_GREEN, COLOR_GREEN);
@@ -47,7 +58,7 @@ int main(){
   init_pair(WATER, COLOR_BLACK, COLOR_BLUE);
   init_pair(WALL, COLOR_BLACK, COLOR_WHITE);
   init_pair(GOAL, COLOR_BLACK, COLOR_CYAN);
-  WINDOW * GAME_MENU = create_game_menu();
+  //WINDOW * GAME_MENU = create_game_menu();
   mapgen(kingdom, player);
 
   keypad(stdscr, true);
@@ -60,10 +71,24 @@ int main(){
       case KEY_END:
         end = true;
         break;
+      case 'p':
+        movement(kingdom, player);
+        mapgen(kingdom,player);
+        cout << player.x_pos;
+        cout << "\n";
+        cout << player.y_pos;
+        cout << "\n";
+        break;
+
+      case 'P':
+        movement(kingdom, player);
+        mapgen(kingdom,player);
+        break;
 
         
 
       default:
+        
         break;
     }
     refresh();

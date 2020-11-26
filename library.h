@@ -31,16 +31,10 @@ struct treasure{
 // player
 struct hero{
   int energy;
-  int cash;
+  int whiffle;
   int x_pos;
   int y_pos;
   tool inventory[100];
-};
-
-// cursor
-struct cursor{
-  int x_pos;
-  int y_pos;
 };
 
 // grovnick

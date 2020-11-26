@@ -42,7 +42,6 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
   }
 
   // grab symbol location
-  char symbol;
   int x = 0;
   int objLocation[2][128*128];
   for(int i = 0; i < 128; ++i){

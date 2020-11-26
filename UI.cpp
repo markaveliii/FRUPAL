@@ -103,8 +103,9 @@ int movement(cell map[128][128], hero &p)
     return 1;
 }
 
-int purchase(cell &dest)
+/*int purchase(cell &dest)
 {
     int cost;
     return cost;
 }
+*/
