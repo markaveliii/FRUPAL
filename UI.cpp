@@ -4,10 +4,10 @@ int movement(cell map[128][128], hero &p)
 {
     noecho();
     keypad(stdscr, TRUE);
-    nodelay(stdscr, TRUE);
+    nodelay(stdscr, FALSE);
     cell dest;
-
-    switch(getch())
+    int input = getch()-48;
+    switch(input)
     {
         //Move left
         case 1:

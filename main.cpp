@@ -74,10 +74,6 @@ int main(){
       case 'p':
         movement(kingdom, player);
         mapgen(kingdom,player);
-        cout << player.x_pos;
-        cout << "\n";
-        cout << player.y_pos;
-        cout << "\n";
         break;
 
       case 'P':
