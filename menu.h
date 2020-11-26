@@ -1,8 +1,8 @@
 //takes one quarter (most to the right) and creates a window that handles the game menu
 WINDOW * create_game_menu() {
   WINDOW * GAME_MENU = newwin(LINES,COLS, 0, COLS-COLS/4);
-  refresh();
   wvline(GAME_MENU, '#', LINES);
+  refresh();
   return GAME_MENU;
 }
 
