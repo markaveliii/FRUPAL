@@ -16,6 +16,9 @@ struct food{
 };
 
 struct tool{
+  tool(const tool & source);
+  void display(WINDOW * win);
+  
   char name[100];
   int power;
   int cost;
@@ -34,7 +37,7 @@ struct hero{
   int cash;
   int x_pos;
   int y_pos;
-  tool inventory[100];
+  inventory backpack;
 };
 
 // cursor
