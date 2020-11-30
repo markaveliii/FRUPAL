@@ -26,8 +26,8 @@ int main(){
   hero player;
   cursor curs;
   initscr();
-  curs.x_pos = 50;
-  curs.y_pos = 50;
+  curs.x_pos = COLS/3;
+  curs.y_pos = LINES/3;
 
 
 
