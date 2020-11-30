@@ -2,10 +2,13 @@
 
 using namespace std;
 
-int visitArea(cell island[128][128], int curr_x, int curr_y, int sight){
+int visitArea(cell island[128][128], hero& player, int sight){
   // range of sight
   int range = (((2 * sight) + 1) + 1) / 2;
-
+  
+  // player location
+  int curr_x = player.x_pos;
+  int curr_y = player.y_pos;
   
   int x = 0, y = 0;
 
