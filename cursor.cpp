@@ -1,7 +1,4 @@
 #include "UI.h"
-#ifndef __LIBRARY__
-#include "library.h"
-#endif
 
 int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c)
 {
@@ -41,10 +38,6 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
 
 
     display_cursor(GAME, c);
-    if(map[c.y_pos][c.x_pos].visible){
-        //display_cell(GAME_MENU, map[c.y_pos][c.x_pos]);
-    }
-    wrefresh(GAME);
     
     return 0;
 }

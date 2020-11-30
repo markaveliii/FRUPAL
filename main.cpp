@@ -26,6 +26,10 @@ int main(){
   hero player;
   cursor curs;
   initscr();
+  curs.x_pos = 50;
+  curs.y_pos = 50;
+
+
 
   if (has_colors() == FALSE) {
     endwin();
@@ -39,8 +43,6 @@ int main(){
     exit(1);
   }
 
-  curs.x_pos = 10;
-  curs.y_pos = 10;
 /*
   cout << COLS;
   cout << "\n";
@@ -84,23 +86,22 @@ int main(){
 
       case 'c':
         move_cursor(stdscr, GW, kingdom, curs);
-        break;
+       break;
 
       case 'C':
         move_cursor(stdscr, GW, kingdom, curs);
         break;
-
-        
 
       default:
         
         break;
     }
     display_EW(GW, player);
-    mapgen(kingdom,player);
+    if(kingdom[curs.y_pos][curs.x_pos].visible)
+        display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);
+ 
     wrefresh(GW);
-    refresh();
-    display_cursor(stdscr, curs);
+    wrefresh(stdscr);
   }
 
   // close window
