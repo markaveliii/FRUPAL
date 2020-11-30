@@ -4,4 +4,5 @@
 
 int movement(cell map[128][128], hero &);
 int purchase(cell &);
-int cursor(WINDOW *w);
+int move_cursor(WINDOW *, WINDOW *, cell map[128][128], cursor &);
+void display_cursor(WINDOW *, cursor);

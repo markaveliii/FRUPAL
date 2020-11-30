@@ -24,6 +24,7 @@ int main(){
   tool toolList[100];
   treasure chestList[100];
   hero player;
+  cursor curs;
   initscr();
 
   if (has_colors() == FALSE) {
@@ -38,10 +39,8 @@ int main(){
     exit(1);
   }
 
-  cout << player.x_pos;
-  cout << "\n";
-  cout << player.y_pos;
-  cout << "\n";
+  curs.x_pos = player.x_pos;
+  curs.y_pos = player.y_pos;
 /*
   cout << COLS;
   cout << "\n";
@@ -80,6 +79,14 @@ int main(){
       case 'P':
         movement(kingdom, player);
         mapgen(kingdom,player);
+        break;
+
+      case 'c':
+        move_cursor(stdscr, GW, kingdom, curs);
+        break;
+
+      case 'C':
+        move_cursor(stdscr, GW, kingdom, curs);
         break;
 
         
