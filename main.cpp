@@ -39,8 +39,8 @@ int main(){
     exit(1);
   }
 
-  curs.x_pos = player.x_pos;
-  curs.y_pos = player.y_pos;
+  curs.x_pos = 10;
+  curs.y_pos = 10;
 /*
   cout << COLS;
   cout << "\n";
@@ -61,6 +61,7 @@ int main(){
   WINDOW *GW = create_game_menu();
     display_EW(GW, player);
     wrefresh(GW);
+  display_cursor(stdscr, curs);
   keypad(stdscr, true);
   noecho();
 
@@ -96,7 +97,10 @@ int main(){
         break;
     }
     display_EW(GW, player);
+    mapgen(kingdom,player);
     wrefresh(GW);
+    refresh();
+    display_cursor(stdscr, curs);
   }
 
   // close window
