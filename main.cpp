@@ -61,15 +61,18 @@ int main(){
   display_movement(GW);
   player.backpack.display(GW);
   wrefresh(GW);
-  display_cursor(stdscr, curs);
 
   keypad(stdscr, true);
   noecho();
-  curs.x_pos = COLS/3;
-  curs.y_pos = LINES/3;
+  curs.x_pos = player.x_pos;
+  curs.y_pos = player.y_pos;
+  
+  display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);
+  wrefresh(GW);
 
   // start game
   while(!end){
+    display_cursor(stdscr, curs, kingdom[curs.y_pos][curs.x_pos]);
     switch((input = getch())){
       // end game
       case KEY_END:
@@ -78,8 +81,8 @@ int main(){
 
       case 49 ... 53:
         movement(kingdom, player, input);
-        mapgen(kingdom,player);
     
+        mapgen(kingdom,player);
         player.backpack.display(GW); 
         wrefresh(GW);
         break;
@@ -91,9 +94,13 @@ int main(){
       default:
         break;
     }
+
+    display_cursor(stdscr, curs, kingdom[curs.y_pos][curs.x_pos]);
+    wrefresh(stdscr);
     display_EW(GW, player);
+    display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);
     wrefresh(GW);
-    display_cursor(stdscr, curs);
+
   }
 
   // close window

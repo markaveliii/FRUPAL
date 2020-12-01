@@ -32,12 +32,15 @@ void display_movement(WINDOW * GAME_MENU) {
 
 void display_cell(WINDOW * GAME_MENU, cell c){
   int x = 2;
-  int y = 1;
+  int y = LINES/4;
+  y *= 3;
+  
+  curs_set(0);
 
-  if(!c.visible)
-      return;
 
   wmove(GAME_MENU, y, x);
+  wprintw(GAME_MENU, "--GROVNIC INFO--");
+  wmove(GAME_MENU, ++y, x);
   wclrtoeol(GAME_MENU);
   switch(c.symbol)
   {
