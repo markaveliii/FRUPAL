@@ -3,7 +3,7 @@
 #include "library.h"
 #endif
 
-int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c)
+int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c, int input)
 {
     curs_set(2);
     nodelay(GAME, FALSE);
@@ -11,9 +11,6 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
     keypad(GAME, TRUE);
     cbreak();
 
-    int input;
-
-    input = getch();
     switch(input)
     {
         case KEY_UP:

@@ -39,8 +39,6 @@ int main(){
     exit(1);
   }
 
-  curs.x_pos = 10;
-  curs.y_pos = 10;
 /*
   cout << COLS;
   cout << "\n";
@@ -64,6 +62,8 @@ int main(){
   display_cursor(stdscr, curs);
   keypad(stdscr, true);
   noecho();
+  curs.x_pos = COLS/3;
+  curs.y_pos = LINES/3;
 
   // start game
   while(!end){
@@ -72,34 +72,21 @@ int main(){
       case KEY_END:
         end = true;
         break;
-      case 'p':
-        movement(kingdom, player);
+
+      case 49 ... 52:
+        movement(kingdom, player, input);
         mapgen(kingdom,player);
         break;
 
-      case 'P':
-        movement(kingdom, player);
-        mapgen(kingdom,player);
+      case 258 ... 261:
+        move_cursor(stdscr, GW, kingdom, curs, input);
         break;
-
-      case 'c':
-        move_cursor(stdscr, GW, kingdom, curs);
-        break;
-
-      case 'C':
-        move_cursor(stdscr, GW, kingdom, curs);
-        break;
-
-        
 
       default:
-        
         break;
     }
     display_EW(GW, player);
-    mapgen(kingdom,player);
     wrefresh(GW);
-    refresh();
     display_cursor(stdscr, curs);
   }
 

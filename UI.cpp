@@ -1,13 +1,12 @@
 #include "UI.h"
 
-int movement(cell map[128][128], hero &p)
+int movement(cell map[128][128], hero &p, int input)
 {
     noecho();
     keypad(stdscr, TRUE);
     nodelay(stdscr, FALSE);
     cell dest;
-    int input = getch()-48;
-    switch(input)
+    switch(input-48)
     {
         //Move left
         case 1:
