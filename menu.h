@@ -14,15 +14,29 @@ void display_EW(WINDOW * GAME_MENU, hero & player) {
   wmove(GAME_MENU, LINES - 2, 2);
   wclrtoeol(GAME_MENU);
   wprintw(GAME_MENU, "Energy: %d", player.energy);
+  wmove(GAME_MENU, 0, 0);
+  wvline(GAME_MENU, '#', LINES);
+  refresh();
 }
+
+//displays movement options
+void display_movement(WINDOW * GAME_MENU) {
+  mvwprintw(GAME_MENU, 2, 3, "Press p to move then press: ");
+  mvwprintw(GAME_MENU, 3, 3, "1 to move left");
+  mvwprintw(GAME_MENU, 4, 3, "2 to move up");
+  mvwprintw(GAME_MENU, 5, 3, "3 to move right");
+  mvwprintw(GAME_MENU, 6, 3, "4 to move down");
+  mvwprintw(GAME_MENU, 7, 3, "5 to purchase");
+}
+
 
 void display_cell(WINDOW * GAME_MENU, cell c){
   int x = 2;
   int y = 1;
-  
+
   if(!c.visible)
       return;
- 
+
   wmove(GAME_MENU, y, x);
   wclrtoeol(GAME_MENU);
   switch(c.symbol)
@@ -43,7 +57,7 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
         wprintw(GAME_MENU, ">ENERGY: %s<", c.foodUnit->fill);
-        
+
         break;
 
     case 'T':
@@ -54,7 +68,7 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
         wprintw(GAME_MENU, "%s", c.toolDevice->desc);
-        
+
         break;
 
     case '!':
