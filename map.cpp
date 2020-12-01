@@ -42,8 +42,8 @@ int mapgen(cell island[128][128], hero player)
     }
 
     //colors in the map 
-    for(int x = playerx - (lengthx/2); x < playerx + (lengthx/2) + 1; x++){
-        for(int y = playery - (lengthy/2); y < playery + (lengthy/2) +1; y++){
+    for(int x = playery - (lengthx/2); x < playery + (lengthx/2) + 1; x++){
+        for(int y = playerx - (lengthy/2); y < playerx + (lengthy/2) +1; y++){
             if(-1 < x && x < 129 && -1 < y && y < 129){
                 //if(island[y][x].visible){
                     switch(island[y][x].tile){
