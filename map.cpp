@@ -9,7 +9,7 @@ using namespace std;
 #define WALL       5
 #define GOAL       6
 
-int mapgen(cell island[128][128], hero player)
+int mapgen(cell island[128][128], hero & player)
 {
     int lengthx;
     int lengthy;
