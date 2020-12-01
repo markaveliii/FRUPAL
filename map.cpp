@@ -45,7 +45,7 @@ int mapgen(cell island[128][128], hero & player)
     for(int x = playery - (lengthx/2); x < playery + (lengthx/2) + 1; x++){
         for(int y = playerx - (lengthy/2); y < playerx + (lengthy/2) +1; y++){
             if(-1 < x && x < 129 && -1 < y && y < 129){
-                //if(island[y][x].visible){
+                if(island[y][x].visible){
                     switch(island[y][x].tile){
                         case 'g':
                             attron(COLOR_PAIR(MEADOW));
@@ -114,7 +114,7 @@ int mapgen(cell island[128][128], hero & player)
                         attroff(COLOR_PAIR(PLAYER));
                     }
                     
-                //}
+                }
             }
             j++;
         }
