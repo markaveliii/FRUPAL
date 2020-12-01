@@ -57,9 +57,12 @@ int main(){
   //WINDOW * GAME_MENU = create_game_menu();
   mapgen(kingdom, player);
   WINDOW *GW = create_game_menu();
-    display_EW(GW, player);
-    wrefresh(GW);
+  display_EW(GW, player);
+  display_movement(GW);
+  player.backpack.display(GW);
+  wrefresh(GW);
   display_cursor(stdscr, curs);
+
   keypad(stdscr, true);
   noecho();
   curs.x_pos = COLS/3;
@@ -73,9 +76,12 @@ int main(){
         end = true;
         break;
 
-      case 49 ... 52:
+      case 49 ... 53:
         movement(kingdom, player, input);
         mapgen(kingdom,player);
+    
+        player.backpack.display(GW); 
+        wrefresh(GW);
         break;
 
       case 258 ... 261:
