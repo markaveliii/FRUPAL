@@ -57,8 +57,10 @@ class inventory
 // player
 struct hero{
   void purchase_tool(tool * a_tool);
-  void purchase_food(food * a_food);  int energy;
+  void purchase_food(food * a_food);
+  int energy;
   int whiffle;
+  int sight;
   int x_pos;
   int y_pos;
   inventory backpack;
@@ -82,4 +84,5 @@ struct cell{
   food* foodUnit;
   tool* toolDevice;
   treasure* treasureChest;
+  char* clue;
 };

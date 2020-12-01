@@ -4,6 +4,11 @@ using namespace std;
 
 // load map into game
 int mapExport(const char* map, cell island[128][128], obstacle obsList[100], food foodList[100], tool toolList[100], treasure chestList[100], hero& player){
+  // load hero default stats
+  player.energy = 100;
+  player.whiffle = 0;
+  player.sight = 1;
+
   ifstream file;
   file.open(map);
 
@@ -19,6 +24,7 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
 
       // hide each tile
       island[i][j].visible = false;
+      island[i][j].clue = NULL;
 
       // assume there are no objects
       island[i][j].exist = false;
@@ -42,8 +48,9 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
   }
 
   // grab symbol location
-  int x = 0;
+  int x = 0, y = 0;
   int objLocation[2][128*128];
+  int clueLocation[2][128*128];
   for(int i = 0; i < 128; ++i){
     for(int j = 0; j < 128; ++j){
       // grab symbol placement
@@ -76,12 +83,18 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
         case '@':
           player.x_pos = j;
           player.y_pos = i;
+          island[i][j].symbol = '/';
           break;
+        case '?':
+          clueLocation[0][y] = i;
+          clueLocation[1][y] = j;
+          ++y;
       }
     }
   }
 
   objLocation[0][x] = -100;
+  clueLocation[0][y] = -100;
 
   int total[4];
   char text[100];
@@ -271,6 +284,19 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
         break;
     }
   }
+  file.ignore(100, '\n');
+
+  for(int i = 0; i < y; ++i){
+    int clueY = clueLocation[0][i];
+    int clueX = clueLocation[1][i];
+
+    file.getline(text, 100, ':');
+    text[strlen(text)] = '\0';
+
+    island[clueY][clueX].clue = new char[100];
+    strcpy(island[clueY][clueX].clue, text);
+    file.ignore(100, '\n');
+  }
 
   file.close();
 
@@ -297,7 +323,8 @@ int mapImport(const char* map, cell island[128][128], obstacle obsList[100], foo
 
   // start writing object placement onto file
   int objLocation[2][128*128];
-  int x = 0;
+  int clueLocation[2][128*128];
+  int x = 0, y = 0;
   for(int i = 0; i < 128; ++i){
     for(int j = 0; j < 128; ++j){
       file << island[i][j].symbol;
@@ -324,11 +351,16 @@ int mapImport(const char* map, cell island[128][128], obstacle obsList[100], foo
           objLocation[1][x] = island[i][j].objSelect;
           ++x;
           break;
+        case '?':
+          clueLocation[0][y] = i;
+          clueLocation[1][y] = j;
+          ++y;
       }
     }
     file << '\n';
   }
   objLocation[0][x] = -100;
+  clueLocation[0][y] = -100;
 
   // store total obstacles
   int total[4] = {0};
@@ -426,6 +458,17 @@ int mapImport(const char* map, cell island[128][128], obstacle obsList[100], foo
     file << objLocation[0][x] << ',';
     file << objLocation[1][x] << ':';
     ++x;
+  }
+  file << '\n';
+
+  // store clue information
+  y = 0;
+  while(clueLocation[0][y] >= 0){
+    int cy = clueLocation[0][y];
+    int cx = clueLocation[1][y];
+
+    file << island[cy][cx].clue << ":\n";
+    ++y;
   }
 
   file.close();

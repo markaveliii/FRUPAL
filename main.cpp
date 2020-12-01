@@ -4,6 +4,7 @@
 #include "maploader.h"
 #include "menu.h"
 #include "UI.h"
+#include "visit.h"
 
 using namespace std;
 #define EMPTY      0
@@ -78,6 +79,7 @@ int main(){
 
       case 49 ... 53:
         movement(kingdom, player, input);
+        visitArea(kingdom, player);
         mapgen(kingdom,player);
     
         player.backpack.display(GW); 
