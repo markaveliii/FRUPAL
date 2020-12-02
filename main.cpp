@@ -85,6 +85,7 @@ int main(){
         if(kingdom[player.y_pos][player.x_pos].obsType) {
 
           display_obstacle(GW, kingdom[player.y_pos][player.x_pos]);
+          display_EW(GW, player);
 
           if(tool_prompt(GW)) {
             int num = 0;
@@ -104,17 +105,22 @@ int main(){
                   kingdom[player.y_pos][player.x_pos].obsType = NULL;
                   kingdom[player.y_pos][player.x_pos].symbol = '/';
                   player.backpack.remove(num);
-                  
+                  num = 'q'-49;
                 }
-                num = 'q'-49;
+                else {
+                clearblock(GW, LINES/5+4, 1);
+                mvwprintw(GW, LINES/5 + 4, 2, "You did not pick the right weapon try again");
+                }
               } 
-              else 
+              else {
+                clearblock(GW, LINES/5+4, 1);
                 mvwprintw(GW, LINES/5 + 4, 2, "invalid"); 
+              }
 
               wrefresh(GW);
               }
 
-            clearblock(GW,LINES/5,5);
+            clearblock(GW,LINES/5,6);
           }
         }
        
