@@ -31,6 +31,8 @@ void display_movement(WINDOW * GAME_MENU) {
 
 
 void display_cell(WINDOW * GAME_MENU, cell c){
+  if(!c.visible)
+      return;
   int x = 2;
   int y = LINES/4;
   y *= 3;
@@ -56,10 +58,10 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wprintw(GAME_MENU, ">FOOD: %s<", c.foodUnit->name);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">COST: %s<", c.foodUnit->cost);
+        wprintw(GAME_MENU, ">COST: %d<", c.foodUnit->cost);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">ENERGY: %s<", c.foodUnit->fill);
+        wprintw(GAME_MENU, ">ENERGY: %d<", c.foodUnit->fill);
 
         break;
 
@@ -67,7 +69,7 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wprintw(GAME_MENU, ">TOOL: %s<", c.toolDevice->name);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">COST: %s<", c.toolDevice->cost);
+        wprintw(GAME_MENU, ">COST: %d<", c.toolDevice->cost);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
         wprintw(GAME_MENU, "%s", c.toolDevice->desc);
@@ -78,7 +80,7 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wprintw(GAME_MENU, ">OBSTACLE: %s<", c.obsType->name);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">ENERGY DRAIN: %s<", c.obsType->drain);
+        wprintw(GAME_MENU, ">ENERGY DRAIN: %d<", c.obsType->drain);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
         wprintw(GAME_MENU, "TOOL NEEDED: %s", c.obsType->tool);

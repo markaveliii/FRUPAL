@@ -116,12 +116,14 @@ int mapgen(cell island[128][128], hero & player)
                         attroff(COLOR_PAIR(PLAYER));
                     }
                     if(island[y][x].curs == true){
+                        attron(A_BLINK);
                         attron(COLOR_PAIR(HIGHLIGHT));
                         if(island[y][x].symbol == '/')
                             mvaddch(j,i,' ');
                         else
                             mvaddch(j,i,island[y][x].symbol);
                         attroff(COLOR_PAIR(HIGHLIGHT));
+                        attroff(A_BLINK);
                     }
                 }
             }
