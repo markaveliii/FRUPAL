@@ -10,7 +10,7 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
     keypad(GAME, TRUE);
     cbreak();
     curs_set(2);
-
+    
     map[c.y_pos][c.x_pos].curs = false;
     switch(input)
     {

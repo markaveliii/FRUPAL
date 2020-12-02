@@ -114,6 +114,7 @@ int mapgen(cell island[128][128], hero & player)
                         attron(COLOR_PAIR(PLAYER));
                         mvaddch(j,i,'@'); 
                         attroff(COLOR_PAIR(PLAYER));
+                        island[y][x].visible = true;
                     }
                     if(island[y][x].curs == true){
                         attron(A_BLINK);
