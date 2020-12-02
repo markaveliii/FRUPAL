@@ -41,14 +41,16 @@ class inventory
   
     int add_tool(tool & copy_from);
     //int remove_tool(char * to_delete);
+    tool * retrieve_tool(int num);
     void display(WINDOW * win);
+    void remove(int);
 
   protected:
     void initialize(tool ** &ptr, int size);
     int add_tool(tool ** &ptr, tool & copy_from);
     //int remove_tool(tool ** &inventory, char * to_delete);
     void delete_all(tool **& ptr);
-    void display(WINDOW * win, tool ** ptr, int y);
+    void display(WINDOW * win, tool ** ptr, int y, int count);
 
     tool ** backpack;
     int size;
@@ -58,6 +60,7 @@ class inventory
 struct hero{
   void purchase_tool(tool * a_tool);
   void purchase_food(food * a_food);
+  void use_tool(tool *, obstacle *);
   int energy;
   int whiffle;
   int sight;
