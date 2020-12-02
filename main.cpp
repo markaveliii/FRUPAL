@@ -79,7 +79,6 @@ int main(){
       case 49 ... 53:
         movement(kingdom, player, input);
         visitArea(kingdom, player);
-        mapgen(kingdom,player);
     
         player.backpack.display(GW); 
         wrefresh(GW);
@@ -92,6 +91,8 @@ int main(){
       default:
         break;
     }
+
+    mapgen(kingdom,player);
     display_EW(GW, player);
     display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);
     wrefresh(GW);

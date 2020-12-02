@@ -21,7 +21,6 @@ int movement(cell map[128][128], hero &p, int input)
             }
             //Handles obstacles
             if(dest.symbol == '!'){
-                if(
                 p.energy -= dest.obsType->drain;
                 map[p.y_pos][p.x_pos-1].symbol = '/';
             }

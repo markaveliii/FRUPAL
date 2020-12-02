@@ -44,6 +44,7 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
           island[i][j].drain = 0;
           break;
       }
+     island[i][j].curs = false; 
     }
   }
 
