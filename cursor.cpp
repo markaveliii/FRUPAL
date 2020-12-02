@@ -50,4 +50,5 @@ void display_cursor(WINDOW * win, cursor curs, cell t)
     attroff(COLOR_PAIR(9));
 */
     wmove(win, curs.y_pos/4, curs.x_pos/3);
+    refresh();
 }

@@ -85,4 +85,5 @@ struct cell{
   tool* toolDevice;
   treasure* treasureChest;
   char* clue;
+  bool curs;
 };
