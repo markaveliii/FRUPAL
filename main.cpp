@@ -87,8 +87,17 @@ int main(){
         movement(kingdom, player, input);
         visitArea(kingdom, player);
 
+        // binoculars found, expand field of vision
         if(kingdom[player.y_pos][player.x_pos].symbol == 'B'){
           player.sight += 1;
+          kingdom[player.y_pos][player.x_pos].symbol = '/';
+        }
+        
+        // clue found
+        if(kingdom[player.y_pos][player.x_pos].symbol == '?'){
+          --player.clue_counter;
+          // optional: display clue desc
+          //mvwprintw(GW, LINES/5 + 4, 2, kingdom[player.y_pos][player.x_pos].clue);
           kingdom[player.y_pos][player.x_pos].symbol = '/';
         }
 

@@ -64,6 +64,7 @@ struct hero{
   int energy;
   int whiffle;
   int sight;
+  int clue_counter;
   int x_pos;
   int y_pos;
   inventory backpack;

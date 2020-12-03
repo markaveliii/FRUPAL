@@ -6,7 +6,7 @@ using namespace std;
 int mapExport(const char* map, cell island[128][128], obstacle obsList[100], food foodList[100], tool toolList[100], treasure chestList[100], hero& player){
   // load hero default stats
   player.energy = 100;
-  player.whiffle = 0;
+  player.whiffle = 1000;
   player.sight = 1;
 
   ifstream file;
@@ -88,6 +88,7 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
         case '?':
           clueLocation[0][y] = i;
           clueLocation[1][y] = j;
+          ++player.clue_counter;
           ++y;
       }
     }
