@@ -56,6 +56,7 @@ int main(){
   init_pair(WALL, COLOR_BLACK, COLOR_WHITE);
   init_pair(GOAL, COLOR_BLACK, COLOR_CYAN);
   //WINDOW * GAME_MENU = create_game_menu();
+  visitArea(kingdom, player);
   mapgen(kingdom, player);
   WINDOW *GW = create_game_menu();
   display_EW(GW, player);
