@@ -65,9 +65,6 @@ int main(){
 
   keypad(stdscr, true);
   noecho();
-  curs.x_pos = player.x_pos;
-  curs.y_pos = player.y_pos;
-
   // start game
   while(!end){
     switch((input = getch())){
@@ -76,7 +73,16 @@ int main(){
         end = true;
         break;
 
-      case 49 ... 53:
+      case 'W':
+      case 'w':
+      case 'A':
+      case 'a':
+      case 'S':
+      case 's':
+      case 'D':
+      case 'd':
+      case 'r':
+      case 'R':
         movement(kingdom, player, input);
         visitArea(kingdom, player);
 
@@ -125,6 +131,10 @@ int main(){
         clearblock(GW,LINES/2 + 1, 10);
         player.backpack.display(GW); 
         wrefresh(GW);
+        kingdom[curs.y_pos][curs.x_pos].curs = false;
+        curs.x_pos = player.x_pos;
+        curs.y_pos = player.y_pos;
+
 
         break;
 
