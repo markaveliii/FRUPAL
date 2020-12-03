@@ -81,6 +81,11 @@ int main(){
         movement(kingdom, player, input);
         visitArea(kingdom, player);
 
+        if(kingdom[player.y_pos][player.x_pos].symbol == 'B'){
+          player.sight += 1;
+          kingdom[player.y_pos][player.x_pos].symbol = '/';
+        }
+
         if(kingdom[player.y_pos][player.x_pos].obsType) {
 
           display_obstacle(GW, kingdom[player.y_pos][player.x_pos]);
