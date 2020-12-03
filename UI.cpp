@@ -31,6 +31,7 @@ int movement(cell map[128][128], hero &p, int input)
         p.energy -= dest.drain;
       }
 
+   
       //update player location to (y,x-1)
       --p.x_pos;
       break;
@@ -136,6 +137,12 @@ int movement(cell map[128][128], hero &p, int input)
           refresh();
         }
       }
+   //Handle treasure
+      else if(map[p.y_pos][p.x_pos].symbol == '$') {
+        p.whiffle += map[p.y_pos][p.x_pos].treasureChest->whiffle;
+        map[p.y_pos][p.x_pos].symbol = '/';
+      }
+
       break;
   } 
   return 1;
