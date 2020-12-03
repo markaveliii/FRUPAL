@@ -97,7 +97,7 @@ int mapgen(cell island[128][128], hero & player)
                             } 
                             attroff(COLOR_PAIR(WALL));
                             break;
-                        case 'R':
+                        /*case 'R':
                             attron(COLOR_PAIR(GOAL));
                             switch(island[y][x].symbol){
                                 case '/':
@@ -108,8 +108,9 @@ int mapgen(cell island[128][128], hero & player)
                                     break;  
                             } 
                             attroff(COLOR_PAIR(GOAL));
-                            break;
+                            break; */
                     }
+
                     if(y == playerx && x == playery){
                         attron(COLOR_PAIR(PLAYER));
                         mvaddch(j,i,'@'); 
@@ -124,6 +125,14 @@ int mapgen(cell island[128][128], hero & player)
                             mvaddch(j, i, island[y][x].symbol);
                         attroff(COLOR_PAIR(HIGHLIGHT));
                         attroff(A_BLINK);
+                    }
+
+                    if(island[y][x].symbol == 'R'){
+                        if(player.clue_counter <= 0){
+                            attron(COLOR_PAIR(GOAL));
+                            mvaddch(j,i,'$'); 
+                            attroff(COLOR_PAIR(GOAL));
+                        }
                     }
 
                 }
