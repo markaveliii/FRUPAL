@@ -2,6 +2,8 @@
 
 int movement(cell map[128][128], hero &p, int input)
 {
+    if(p.energy <= 0)
+        return -1;
     noecho();
     keypad(stdscr, TRUE);
     nodelay(stdscr, FALSE);

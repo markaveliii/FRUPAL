@@ -11,7 +11,7 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
     cbreak();
     curs_set(2);
 
-    wrefresh(GAME);
+    map[c.y_pos][c.x_pos].curs = false;
     switch(input)
     {
         case KEY_UP:
@@ -36,7 +36,7 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
             break;
 
     }
-
+    map[c.y_pos][c.x_pos].curs = true;
     return 0;
 }
 
@@ -49,6 +49,5 @@ void display_cursor(WINDOW * win, cursor curs, cell t)
     mvprintw(curs.y_pos-LINES, curs.x_pos-COLS, " ");
     attroff(COLOR_PAIR(9));
 */
-    wmove(win, curs.y_pos/4, curs.x_pos/3);
     refresh();
 }
