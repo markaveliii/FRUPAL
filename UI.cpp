@@ -8,10 +8,11 @@ int movement(cell map[128][128], hero &p, int input)
     keypad(stdscr, TRUE);
     nodelay(stdscr, FALSE);
     cell dest;
-    switch(input-48)
+    switch(input)
     {
         //Move left
-        case 1:
+        case 'a':
+        case 'A':
 
             if(p.x_pos == 0)
                 return 0;
@@ -35,7 +36,8 @@ int movement(cell map[128][128], hero &p, int input)
             break;
 
             //Move Up
-        case 2:
+        case 'w':
+        case 'W':
             if(p.y_pos == 0)
                 return 0;
             dest = map[p.y_pos - 1][p.x_pos];
@@ -58,7 +60,8 @@ int movement(cell map[128][128], hero &p, int input)
             break;
 
             //Move Right
-        case 3:
+        case 'd':
+        case 'D':
             if(p.x_pos == COLS)
                 return 0;
             dest = map[p.y_pos][p.x_pos + 1];
@@ -82,7 +85,8 @@ int movement(cell map[128][128], hero &p, int input)
             break;
 
             //Move down
-        case 4:
+        case 'S':
+        case 's':
             if(p.y_pos == LINES)
                 return 0;
             dest = map[p.y_pos + 1][p.x_pos];
@@ -105,7 +109,8 @@ int movement(cell map[128][128], hero &p, int input)
             ++p.y_pos;
             break;
 
-        case 5:
+        case 'r':
+        case 'R':
             if(map[p.y_pos][p.x_pos].toolDevice) {
                 p.purchase_tool(map[p.y_pos][p.x_pos].toolDevice);
                 map[p.y_pos][p.x_pos].toolDevice = NULL;
