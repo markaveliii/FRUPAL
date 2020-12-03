@@ -3,6 +3,8 @@
 #include <ncurses.h>
 #include <fstream>
 
+#define BINOCULARS 100
+
 struct obstacle{
   char name[100];
   char tool[100];

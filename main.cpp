@@ -32,7 +32,7 @@ int main(){
     endwin();
     printf("Your terminal does not support color\n");
     exit(1);
-}
+  }
 
 
   if(mapExport("map1.txt", kingdom, obsList, foodList, toolList, chestList, player) != 0){
@@ -40,13 +40,13 @@ int main(){
     exit(1);
   }
 
-/*
-  cout << COLS;
-  cout << "\n";
-  cout << LINES;
-  cout << "\n";
-*/
-  
+  /*
+     cout << COLS;
+     cout << "\n";
+     cout << LINES;
+     cout << "\n";
+   */
+
   start_color();
   init_pair(EMPTY, COLOR_GREEN, COLOR_GREEN);
   init_pair(PLAYER, COLOR_BLACK, COLOR_RED);
@@ -87,20 +87,28 @@ int main(){
         movement(kingdom, player, input);
         visitArea(kingdom, player);
 
-        // binoculars found, expand field of vision
-        if(kingdom[player.y_pos][player.x_pos].symbol == 'B'){
-          player.sight += 1;
-          kingdom[player.y_pos][player.x_pos].symbol = '/';
-        }
-        
         // clue found
         if(kingdom[player.y_pos][player.x_pos].symbol == '?'){
+          mapgen(kingdom, player);
+          wrefresh(GW);
           --player.clue_counter;
-          // optional: display clue desc
-          //mvwprintw(GW, LINES/5 + 4, 2, kingdom[player.y_pos][player.x_pos].clue);
           kingdom[player.y_pos][player.x_pos].symbol = '/';
+          wmove(GW, LINES/5 + 4, 2);
+          wclrtoeol(GW);
+          mvwprintw(GW, LINES/5 + 4, 2, kingdom[player.y_pos][player.x_pos].clue);
+          wmove(GW, LINES/5 + 5, 2);
+          wclrtoeol(GW);
+          mvwprintw(GW, LINES/5 + 5, 2, "Press any key to continue");
+          wrefresh(GW);
+          getch();
+          wmove(GW, LINES/5 + 4, 2);
+          wclrtoeol(GW);
+          wmove(GW, LINES/5 + 5, 2);
+          wclrtoeol(GW);
+          wrefresh(GW);
         }
-
+        
+        // player runs into obstacle
         if(kingdom[player.y_pos][player.x_pos].obsType) {
 
           display_obstacle(GW, kingdom[player.y_pos][player.x_pos]);
@@ -127,8 +135,8 @@ int main(){
                   num = 'q'-49;
                 }
                 else {
-                clearblock(GW, LINES/5+4, 1);
-                mvwprintw(GW, LINES/5 + 4, 2, "You did not pick the right weapon try again");
+                  clearblock(GW, LINES/5+4, 1);
+                  mvwprintw(GW, LINES/5 + 4, 2, "You did not pick the right weapon try again");
                 }
               } 
               else {
@@ -137,12 +145,12 @@ int main(){
               }
 
               wrefresh(GW);
-              }
+            }
 
             clearblock(GW,LINES/5,6);
           }
         }
-       
+
         clearblock(GW,LINES/2 + 1, 10);
         player.backpack.display(GW); 
         wrefresh(GW);
@@ -160,7 +168,7 @@ int main(){
       default:
         break;
     }
-    
+
     mapgen(kingdom,player);
     display_EW(GW, player);
     display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);

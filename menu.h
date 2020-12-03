@@ -142,6 +142,9 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         break;
     case 'B':
         wprintw(GAME_MENU,">BINOCULARS<");
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, ">COST: %d<", BINOCULARS);
 
         break;
   }
