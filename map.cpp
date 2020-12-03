@@ -8,6 +8,7 @@ using namespace std;
 #define WATER      4
 #define WALL       5
 #define GOAL       6
+#define HIGHLIGHT  7
 
 int mapgen(cell island[128][128], hero & player)
 {
@@ -20,7 +21,7 @@ int mapgen(cell island[128][128], hero & player)
     lengthx = COLS / 4;
     lengthx = lengthx * 3;
     lengthy = LINES;
-    
+
 
     start_color();
     init_pair(EMPTY, COLOR_BLACK, COLOR_BLACK);
@@ -30,6 +31,7 @@ int mapgen(cell island[128][128], hero & player)
     init_pair(WATER, COLOR_BLACK, COLOR_BLUE);
     init_pair(WALL, COLOR_BLACK, COLOR_WHITE);
     init_pair(GOAL, COLOR_BLACK, COLOR_CYAN);
+    init_pair(HIGHLIGHT, COLOR_BLACK, COLOR_WHITE);
 
 
     //voids out previous screen
@@ -113,7 +115,17 @@ int mapgen(cell island[128][128], hero & player)
                         mvaddch(j,i,'@'); 
                         attroff(COLOR_PAIR(PLAYER));
                     }
-                    
+                    if(island[y][x].curs == true){
+                        attroff(A_BLINK);
+                        attroff(COLOR_PAIR(HIGHLIGHT));
+                        if(island[y][x].symbol == '/')
+                            mvaddch(j, i, ' ');
+                        else
+                            mvaddch(j, i, island[y][x].symbol);
+                        attroff(COLOR_PAIR(HIGHLIGHT));
+                        attroff(A_BLINK);
+                    }
+
                 }
             }
             j++;

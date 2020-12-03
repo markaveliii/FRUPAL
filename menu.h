@@ -1,6 +1,6 @@
 //takes one quarter (most to the right) and creates a window that handles the game menu
 WINDOW * create_game_menu() {
-  WINDOW * GAME_MENU = newwin(LINES,COLS, 0, COLS-COLS/4);
+  WINDOW * GAME_MENU = newwin(LINES,COLS, 0, COLS - COLS/4);
   wvline(GAME_MENU, '#', LINES);
   refresh();
   return GAME_MENU;
@@ -21,23 +21,73 @@ void display_EW(WINDOW * GAME_MENU, hero & player) {
 
 //displays movement options
 void display_movement(WINDOW * GAME_MENU) {
-  mvwprintw(GAME_MENU, 2, 3, "Press p to move then press: ");
-  mvwprintw(GAME_MENU, 3, 3, "1 to move left");
-  mvwprintw(GAME_MENU, 4, 3, "2 to move up");
-  mvwprintw(GAME_MENU, 5, 3, "3 to move right");
-  mvwprintw(GAME_MENU, 6, 3, "4 to move down");
-  mvwprintw(GAME_MENU, 7, 3, "5 to purchase");
+  //menu start
+  int y = 2;
+  mvwprintw(GAME_MENU, y, 3, "1 to move left");
+  mvwprintw(GAME_MENU, ++y, 3, "2 to move up");
+  mvwprintw(GAME_MENU, ++y, 3, "3 to move right");
+  mvwprintw(GAME_MENU, ++y, 3, "4 to move down");
+  mvwprintw(GAME_MENU, ++y, 3, "5 to purchase");
 }
 
+bool tool_prompt(WINDOW * win) {
+  mvwprintw(win, LINES/5 + 3, 2, "Would you like use a tool? y/n");
+  bool ret = false;
+  char input;
+  wrefresh(win);
 
+  while (input != 'y' && input != 'n') {
+
+    cbreak();
+    input = getch();
+    wmove(win, LINES/5 + 4, 2);
+    wclrtoeol(win);
+
+    if (input == 'y') 
+      ret = true;
+    else if (input != 'n')
+      mvwprintw(win, LINES/5 + 4, 2, "Invalid character please try again");
+    wrefresh(win);
+  }
+
+  wmove(win, LINES/5 + 3, 2);
+  wclrtoeol(win);
+  wmove(win, LINES/5 + 4, 2);
+  wclrtoeol(win);
+  wrefresh(win);
+  
+  return ret;
+}
+
+void display_obstacle(WINDOW * GW, cell & c) { 
+  int x,y;
+  y = LINES/5;
+  x = 2;
+  mvwprintw(GW, y, x,"You have encountered a %s", c.obsType->name);
+  mvwprintw(GW, ++y, x,"You need '%s' to destroy it", c.obsType->tool);
+  wrefresh(GW);
+}
+
+void clearblock(WINDOW * GW, int start, int stop) {
+  for(int i = 0; i < stop; ++i) {
+    wmove(GW, start + i, 2);
+    wclrtoeol(GW);
+  }
+    wrefresh(GW);
+}
+
+  
 void display_cell(WINDOW * GAME_MENU, cell c){
   int x = 2;
-  int y = 1;
+  int y = LINES/4;
+  y *= 3;
+  
+  curs_set(0);
 
-  if(!c.visible)
-      return;
 
   wmove(GAME_MENU, y, x);
+  wprintw(GAME_MENU, "--GROVNIC INFO--");
+  wmove(GAME_MENU, ++y, x);
   wclrtoeol(GAME_MENU);
   switch(c.symbol)
   {
@@ -53,10 +103,10 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wprintw(GAME_MENU, ">FOOD: %s<", c.foodUnit->name);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">COST: %s<", c.foodUnit->cost);
+        wprintw(GAME_MENU, ">COST: %d<", c.foodUnit->cost);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">ENERGY: %s<", c.foodUnit->fill);
+        wprintw(GAME_MENU, ">ENERGY: %d<", c.foodUnit->fill);
 
         break;
 
@@ -64,7 +114,7 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wprintw(GAME_MENU, ">TOOL: %s<", c.toolDevice->name);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">COST: %s<", c.toolDevice->cost);
+        wprintw(GAME_MENU, ">COST: %d<", c.toolDevice->cost);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
         wprintw(GAME_MENU, "%s", c.toolDevice->desc);
@@ -75,7 +125,7 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wprintw(GAME_MENU, ">OBSTACLE: %s<", c.obsType->name);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
-        wprintw(GAME_MENU, ">ENERGY DRAIN: %s<", c.obsType->drain);
+        wprintw(GAME_MENU, ">ENERGY DRAIN: %d<", c.obsType->drain);
         wmove(GAME_MENU, ++y, x);
         wclrtoeol(GAME_MENU);
         wprintw(GAME_MENU, "TOOL NEEDED: %s", c.obsType->tool);

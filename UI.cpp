@@ -2,6 +2,8 @@
 
 int movement(cell map[128][128], hero &p, int input)
 {
+    if(p.energy <= 0)
+        return -1;
     noecho();
     keypad(stdscr, TRUE);
     nodelay(stdscr, FALSE);
@@ -10,6 +12,7 @@ int movement(cell map[128][128], hero &p, int input)
     {
         //Move left
         case 1:
+
             if(p.x_pos == 0)
                 return 0;
             dest = map[p.y_pos][p.x_pos - 1];
@@ -21,16 +24,17 @@ int movement(cell map[128][128], hero &p, int input)
             //Handles obstacles
             if(dest.symbol == '!'){
                 p.energy -= dest.obsType->drain;
+                map[p.y_pos][p.x_pos-1].symbol = '/';
             }
             else{
-            p.energy -= dest.drain;
+                p.energy -= dest.drain;
             }
 
             //update player location to (y,x-1)
             --p.x_pos;
             break;
 
-        //Move Up
+            //Move Up
         case 2:
             if(p.y_pos == 0)
                 return 0;
@@ -43,16 +47,17 @@ int movement(cell map[128][128], hero &p, int input)
             //Handles obstacles
             if(dest.symbol == '!'){
                 p.energy -= dest.obsType->drain;
+                map[p.y_pos-1][p.x_pos].symbol = '/';
             }
             else{
-            p.energy -= dest.drain;
+                p.energy -= dest.drain;
             }
 
             //update player location to (y-1,x)
             --p.y_pos;
             break;
 
-        //Move Right
+            //Move Right
         case 3:
             if(p.x_pos == COLS)
                 return 0;
@@ -66,16 +71,17 @@ int movement(cell map[128][128], hero &p, int input)
             //Handles obstacles
             if(dest.symbol == '!'){
                 p.energy -= dest.obsType->drain;
+                map[p.y_pos][p.x_pos+1].symbol = '/';
             }
             else{
-            p.energy -= dest.drain;
+                p.energy -= dest.drain;
             }
 
             //update player location to (y,x+1)
             ++p.x_pos;
             break;
 
-        //Move down
+            //Move down
         case 4:
             if(p.y_pos == LINES)
                 return 0;
@@ -89,6 +95,7 @@ int movement(cell map[128][128], hero &p, int input)
             //Handles obstacles
             if(dest.symbol == '!'){
                 p.energy -= dest.obsType->drain;
+                map[p.y_pos+1][p.x_pos].symbol = '/';
             }
             else{
                 p.energy -= dest.drain;
@@ -100,14 +107,14 @@ int movement(cell map[128][128], hero &p, int input)
 
         case 5:
             if(map[p.y_pos][p.x_pos].toolDevice) {
-              p.purchase_tool(map[p.y_pos][p.x_pos].toolDevice);
-              map[p.y_pos][p.x_pos].toolDevice = NULL;
-              map[p.y_pos][p.x_pos].symbol = '/';
+                p.purchase_tool(map[p.y_pos][p.x_pos].toolDevice);
+                map[p.y_pos][p.x_pos].toolDevice = NULL;
+                map[p.y_pos][p.x_pos].symbol = '/';
             }   
             else if(map[p.y_pos][p.x_pos].foodUnit) {
-              p.purchase_food(map[p.y_pos][p.x_pos].foodUnit);
-              map[p.y_pos][p.x_pos].foodUnit = NULL;
-              map[p.y_pos][p.x_pos].symbol = '/';
+                p.purchase_food(map[p.y_pos][p.x_pos].foodUnit);
+                map[p.y_pos][p.x_pos].foodUnit = NULL;
+                map[p.y_pos][p.x_pos].symbol = '/';
             }   
             break;
 
@@ -116,8 +123,8 @@ int movement(cell map[128][128], hero &p, int input)
 }
 
 /*int purchase(cell &dest)
-{
-    int cost;
-    return cost;
-}
-*/
+  {
+  int cost;
+  return cost;
+  }
+  */

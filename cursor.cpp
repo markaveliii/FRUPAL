@@ -5,12 +5,13 @@
 
 int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c, int input)
 {
-    curs_set(2);
     nodelay(GAME, FALSE);
     noecho();
     keypad(GAME, TRUE);
     cbreak();
+    curs_set(2);
 
+    map[c.y_pos][c.x_pos].curs = false;
     switch(input)
     {
         case KEY_UP:
@@ -19,7 +20,7 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
             --c.y_pos;
             break;
         case KEY_DOWN:
-            if(c.y_pos == LINES-1)
+            if(c.y_pos == 128-1)
                 break;
             ++c.y_pos;
             break;
@@ -29,24 +30,24 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
             --c.x_pos;
             break;
         case KEY_RIGHT:
-            if(c.x_pos ==  COLS-1)
+            if(c.x_pos ==  128-1)
                 break;
             ++c.x_pos;
             break;
 
     }
-
-
-    display_cursor(GAME, c);
-    if(map[c.y_pos][c.x_pos].visible){
-        //display_cell(GAME_MENU, map[c.y_pos][c.x_pos]);
-    }
-    wrefresh(GAME);
-    
+    map[c.y_pos][c.x_pos].curs = true;
     return 0;
 }
 
-void display_cursor(WINDOW * win, cursor curs)
+void display_cursor(WINDOW * win, cursor curs, cell t)
 {
-    wmove(win, curs.y_pos, curs.x_pos);
+    curs_set(2);
+/*    start_color();
+    init_pair(9, COLOR_BLACK, COLOR_WHITE);
+    attron(COLOR_PAIR(9));
+    mvprintw(curs.y_pos-LINES, curs.x_pos-COLS, " ");
+    attroff(COLOR_PAIR(9));
+*/
+    refresh();
 }

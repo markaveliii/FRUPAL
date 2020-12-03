@@ -63,12 +63,11 @@ int main(){
   display_movement(GW);
   player.backpack.display(GW);
   wrefresh(GW);
-  display_cursor(stdscr, curs);
 
   keypad(stdscr, true);
   noecho();
-  curs.x_pos = COLS/3;
-  curs.y_pos = LINES/3;
+  curs.x_pos = player.x_pos;
+  curs.y_pos = player.y_pos;
 
   // start game
   while(!end){
@@ -81,10 +80,53 @@ int main(){
       case 49 ... 53:
         movement(kingdom, player, input);
         visitArea(kingdom, player);
-        mapgen(kingdom,player);
-    
+
+        if(kingdom[player.y_pos][player.x_pos].obsType) {
+
+          display_obstacle(GW, kingdom[player.y_pos][player.x_pos]);
+          display_EW(GW, player);
+
+          if(tool_prompt(GW)) {
+            int num = 0;
+            mvwprintw(GW, LINES/5 + 3, 2, "choose weapon (numpad) or (q)uit");
+            wrefresh(GW);
+
+            while(num != ('q'-49)) {
+              num = getch();
+              num -= 49;
+
+              if(player.backpack.retrieve_tool(num)) {
+                tool * equipped = player.backpack.retrieve_tool(num);
+                obstacle * obs = kingdom[player.y_pos][player.x_pos].obsType;
+
+                if(strcmp(equipped->name, obs->tool) == 0) {
+                  player.use_tool(equipped, obs);
+                  kingdom[player.y_pos][player.x_pos].obsType = NULL;
+                  kingdom[player.y_pos][player.x_pos].symbol = '/';
+                  player.backpack.remove(num);
+                  num = 'q'-49;
+                }
+                else {
+                clearblock(GW, LINES/5+4, 1);
+                mvwprintw(GW, LINES/5 + 4, 2, "You did not pick the right weapon try again");
+                }
+              } 
+              else {
+                clearblock(GW, LINES/5+4, 1);
+                mvwprintw(GW, LINES/5 + 4, 2, "invalid"); 
+              }
+
+              wrefresh(GW);
+              }
+
+            clearblock(GW,LINES/5,6);
+          }
+        }
+       
+        clearblock(GW,LINES/2 + 1, 10);
         player.backpack.display(GW); 
         wrefresh(GW);
+
         break;
 
       case 258 ... 261:
@@ -94,9 +136,11 @@ int main(){
       default:
         break;
     }
+    
+    mapgen(kingdom,player);
     display_EW(GW, player);
+    display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);
     wrefresh(GW);
-    display_cursor(stdscr, curs);
   }
 
   // close window

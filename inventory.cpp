@@ -40,9 +40,13 @@ void hero::purchase_food(food * a_food) {
   move(16, (COLS - COLS/4) + 3);
   clrtoeol();
 }
-  
+ 
+void hero::use_tool(tool * a_tool, obstacle * obs) {
+  energy -= obs->drain/a_tool->power;
+}
+
 inventory::inventory() {
-  size = 4;
+  size = 10;
   backpack = new tool*[size];
   tool ** ptr = backpack;
   initialize(ptr,size);
@@ -81,26 +85,38 @@ int inventory::add_tool(tool ** &ptr, tool & copy_from){
   return success += add_tool(++ptr, copy_from);
 }
 
+tool * inventory::retrieve_tool(int num) {
+  return backpack[num];
+}
+
+void inventory::remove(int num) {
+  if(backpack[num])
+    delete backpack[num];
+  backpack[num] = NULL;
+}
+
 void inventory::display(WINDOW * win) {
   
   tool ** ptr = backpack;
-  wmove(win, LINES/4 + 7, 3);
+  wmove(win, LINES/2, 2);
   wprintw(win, "Tools");
-  int y = LINES/4 + 8;
-  return display(win, ptr, y);
+  int y = LINES/2 + 1;
+  int count = 1;
+  return display(win, ptr, y, count);
 }
 
-void inventory::display(WINDOW * win, tool ** ptr, int y) {
+void inventory::display(WINDOW * win, tool ** ptr, int y, int count) {
 
   if(*ptr == *(backpack + (size + 1)))
     return;
 
   if(*ptr) {
-    wmove(win, y, 3);
+    mvwprintw(win, y, 2, "%d", count);
+    wmove(win, y, 4);
     (*ptr)->display(win);
   }
 
-  return display(win,++ptr, ++y);
+  return display(win,++ptr, ++y, ++count);
 }
 
    
