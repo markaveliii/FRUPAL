@@ -18,6 +18,7 @@ using namespace std;
 int main(){
   bool end = false; // flag to turn game off
   int input;        // user input
+  int win = 0;      // win check
 
   cell kingdom[128][128];
   obstacle obsList[100];
@@ -173,10 +174,24 @@ int main(){
     display_EW(GW, player);
     display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);
     wrefresh(GW);
+    if(kingdom[player.y_pos][player.x_pos].symbol == 'R'){
+      end = true;
+      win = 1;
+    }
+    if(player.energy <= 0){
+      end = true;
+    }
   }
 
   // close window
   endwin();
+
+  if(player.energy <= 0){
+    cout << "\nYou have lost the game.\n";
+  }
+  if(win == 1){
+    cout << "\nYou have won the game.\n";
+  }
 
   return 0;
 }

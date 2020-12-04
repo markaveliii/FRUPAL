@@ -93,6 +93,18 @@ void display_cell(WINDOW * GAME_MENU, cell c){
   {
     case '$':
        wprintw(GAME_MENU, ">TREASURE!!!<");
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, ">WHIFFLE: %d<", c.treasureChest->whiffle);
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, ">LOOT 1: %s<", c.treasureChest->loot1);
+        wmove(GAME_MENU, ++y, x);
+        wclrtoeol(GAME_MENU);
+        wprintw(GAME_MENU, ">LOOT 2: %s<", c.treasureChest->loot2);
+ 
+
+
         break;
 
     case 'R':
