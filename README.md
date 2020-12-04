@@ -2,7 +2,11 @@
 Frupal is a text-based adventure game that takes place on a 128 x 128 grovnick (tile) island, the Kingdom of Frupal. The player spawns in this island and is given some whiffle. The player's objective is to find the Royal Diamond in order to win the game. The player must find all of the clues in order to reveal the location of the Royal Diamond. The catch is that the player has a limited energy supply for each action made. There are obstacles that gets in the way of the player by require more energy to pass through unless they bought a tool for it. If the player spends all of their energy, they lose. Their energy can be replenished by purchasing food.
 
 ## Starting the Game
-In order to start the game, the player must load in the map file of the kingdom. The game will prompt the user to enter the name of the map file. The default map file's name is "map1.txt" (without quotation marks). The name is case sensitive so be sure to enter the exact name. By entering this into the game the map will be loaded and start the game.
+In order to start the game, the player must first compile the game. Simply enter "make" without quotation marks into the command line. Then enter "./frupal" without quotation marks once the compilation finishes.
+<!--To load in a map of the kingdom. The game will prompt the user to enter the name of the map file. It's recommended to load the file called "map1.txt" (without quotation marks). The name is case sensitive so be sure to enter the exact name. By entering this into the game the map will be loaded and start the game.-->
+
+## Map(s) for the game
+* map1.txt: demonstration map
 
 ## Exiting the Game
 If the player decides to stop the game, pressing the "End" key located on the right-side of the computer will end the game. Be warned that progress is not saved and the map will load its default settingsagain.
@@ -42,3 +46,10 @@ Some grovnick may have objects on them. They're represented by a character symbo
 * S (ship): found on a water grovnick, allows the player the travers through a body of water
 * B (binoculars): special item that expands the player's field of vision, revealing more areas around them
 * $ (Royal Diamond): colored in white instead to distinguish it from treasure chests, this is your goal to win the game
+
+## Implemented Features
+All main features that defines the playability of this game has been implemented. This includes loading and display the map, player movement and interactions with objects, player menu, and a win-loss condition.
+
+## Not finished
+
+## Video Presentation
