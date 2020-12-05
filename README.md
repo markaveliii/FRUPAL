@@ -53,3 +53,4 @@ All main features that defines the playability of this game has been implemented
 ## Not finished
 
 ## Video Presentation
+https://media.pdx.edu/media/Group+13+Discussion/1_19wlax3t
