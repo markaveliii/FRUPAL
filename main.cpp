@@ -64,7 +64,6 @@ int main(){
   display_movement(GW);
   player.backpack.display(GW);
   wrefresh(GW);
-  player.energy = 1000;
 
   keypad(stdscr, true);
   noecho();
@@ -92,6 +91,7 @@ int main(){
 
         // clue found
         if(kingdom[player.y_pos][player.x_pos].symbol == '?'){
+          display_EW(GW, player);
           mapgen(kingdom, player);
           wrefresh(GW);
           --player.clue_counter;
