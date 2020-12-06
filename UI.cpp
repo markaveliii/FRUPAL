@@ -157,40 +157,6 @@ int movement(cell map[128][128], hero &p, int input)
       ++p.y_pos;
       break;
 
-    case 'r':
-    case 'R':
-      if(map[p.y_pos][p.x_pos].toolDevice) {
-        p.purchase_tool(map[p.y_pos][p.x_pos].toolDevice);
-        map[p.y_pos][p.x_pos].toolDevice = NULL;
-        map[p.y_pos][p.x_pos].symbol = '/';
-      }   
-      else if(map[p.y_pos][p.x_pos].foodUnit) {
-        p.purchase_food(map[p.y_pos][p.x_pos].foodUnit);
-        map[p.y_pos][p.x_pos].foodUnit = NULL;
-        map[p.y_pos][p.x_pos].symbol = '/';
-      }
-      else if(map[p.y_pos][p.x_pos].symbol == 'B'){
-        if(p.whiffle >= BINOCULARS){
-          p.whiffle -= BINOCULARS;
-          ++p.sight;
-          map[p.y_pos][p.x_pos].symbol = '/';
-          mvprintw(12, (COLS - COLS/4) + 3, "Purchase success");
-          mvprintw(13, (COLS - COLS/4) + 3, "Press any key to continute.");
-          getch();
-          move(12, (COLS - COLS/4) + 3);
-          clrtoeol();
-          move(13, (COLS - COLS/4) + 3);
-          clrtoeol();
-          refresh();
-        }
-      }
-   //Handle treasure
-      else if(map[p.y_pos][p.x_pos].symbol == '$') {
-        p.whiffle += map[p.y_pos][p.x_pos].treasureChest->whiffle;
-        map[p.y_pos][p.x_pos].symbol = '/';
-      }
-
-      break;
   } 
   return 1;
 }
