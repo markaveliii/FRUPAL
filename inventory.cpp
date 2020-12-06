@@ -121,7 +121,7 @@ void inventory::display(WINDOW * win, tool ** ptr, int y, int count) {
   if(*ptr) {
     mvwprintw(win, y, 2, "%d", count);
     wmove(win, y, 4);
-    (*ptr)->display(win);
+    (*ptr)->display(win, y);
   }
 
   return display(win,++ptr, ++y, ++count);
