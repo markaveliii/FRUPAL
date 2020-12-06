@@ -86,6 +86,8 @@ int main(){
       case 'd':
       //case 'r':
       //case 'R':
+        clearblock(GW, LINES-LINES/4, 7);
+        wrefresh(GW);
         movement(kingdom, player, input);
         visitArea(kingdom, player);
         mapgen(kingdom, player);
@@ -163,7 +165,6 @@ int main(){
             if(player.purchase_ship()) {
               purchase_success();
               player.has_ship = true;
-              //player.y_pos -= 1;
               kingdom[player.y_pos][player.x_pos].symbol = '/';
               mapgen(kingdom,player);
             }
