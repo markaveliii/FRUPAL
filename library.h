@@ -21,7 +21,7 @@ struct tool{
 
   tool();
   tool(const tool & source);
-  void display(WINDOW * win);       
+  void display(WINDOW * win, int y);       
 
   char name[100];
   int power;
