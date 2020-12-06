@@ -1,53 +1,53 @@
 #include "UI.h"
+#ifndef __LIBRARY__
+#include "library.h"
+#endif
 
-int cursor(WINDOW * win, WINDOW * GAME_MENU, cell map[128][128], cursor &c)
+int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c, int input)
 {
-    initscr();
-    curs_set(2);
-    nodelay(win, TRUE);
+    nodelay(GAME, FALSE);
     noecho();
-    keypad(win, TRUE);
+    keypad(GAME, TRUE);
     cbreak();
+    curs_set(2);
 
-    int input;
-
-    input = getch();
+    map[c.y_pos][c.x_pos].curs = false;
     switch(input)
     {
         case KEY_UP:
-            if(y == 0)
+            if(c.y_pos == 0)
                 break;
             --c.y_pos;
             break;
         case KEY_DOWN:
-            if(y == LINES-1)
+            if(c.y_pos == 128-1)
                 break;
             ++c.y_pos;
             break;
         case KEY_LEFT:
-            if(x == 0)
+            if(c.x_pos == 0)
                 break;
             --c.x_pos;
             break;
         case KEY_RIGHT:
-            if(x == COLS-1)
+            if(c.x_pos ==  128-1)
                 break;
             ++c.x_pos;
             break;
 
     }
-
-
-    display_cursor(win, c);
-    if(map[c.y_pos][c.x_pos].visible){
-        display_cell(GAME_MENU, map[c.y_pos][c.x_pos]);
-    }
-    refresh();
-    
+    map[c.y_pos][c.x_pos].curs = true;
     return 0;
 }
 
-void display_cursor(WINDOW * win, cursor curs)
+void display_cursor(WINDOW * win, cursor curs, cell t)
 {
-    wmove(win, curs.y_pos, curs.x_pos);
+    curs_set(2);
+/*    start_color();
+    init_pair(9, COLOR_BLACK, COLOR_WHITE);
+    attron(COLOR_PAIR(9));
+    mvprintw(curs.y_pos-LINES, curs.x_pos-COLS, " ");
+    attroff(COLOR_PAIR(9));
+*/
+    refresh();
 }
