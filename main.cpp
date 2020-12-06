@@ -86,8 +86,6 @@ int main(){
       case 'd':
       //case 'r':
       //case 'R':
-        clearblock(GW, LINES-LINES/4, 7);
-        wrefresh(GW);
         movement(kingdom, player, input);
         visitArea(kingdom, player);
         mapgen(kingdom, player);
@@ -181,8 +179,8 @@ int main(){
         curs.y_pos = player.y_pos;
         break;
 
-      case 'r':
-      case 'R': 
+      case 'p':
+      case 'P': 
        if(kingdom[player.y_pos][player.x_pos].toolDevice) {
           if(player.purchase_tool(kingdom[player.y_pos][player.x_pos].toolDevice)) {
           purchase_success();
@@ -204,6 +202,8 @@ int main(){
           player.whiffle += kingdom[player.y_pos][player.x_pos].treasureChest->whiffle;
           kingdom[player.y_pos][player.x_pos].symbol = '/';
         }
+        player.backpack.display(GW);
+        wrefresh(GW);
         break;
 
 
