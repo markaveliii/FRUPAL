@@ -2,7 +2,7 @@
 Frupal is a text-based adventure game that takes place on a 128 x 128 grovnick (tile) island, the Kingdom of Frupal. The player spawns in this island and is given some whiffle. The player's objective is to find the Royal Diamond in order to win the game. The player must find all of the clues in order to reveal the location of the Royal Diamond. The catch is that the player has a limited energy supply for each action made. There are obstacles that gets in the way of the player by require more energy to pass through unless they bought a tool for it. If the player spends all of their energy, they lose. Their energy can be replenished by purchasing food.
 
 ## Starting the Game
-In order to start the game, the player must first compile the game. Simply enter "make" without quotation marks into the command line. Then enter "./frupal" without quotation marks once the compilation finishes.
+In order to start the game, the player must first compile the game. Simply enter "make" without quotation marks into the command line. Then enter "./frupal" without quotation marks once the compilation finishes. Minimum terminal size is 170x4.
 <!--To load in a map of the kingdom. The game will prompt the user to enter the name of the map file. It's recommended to load the file called "map1.txt" (without quotation marks). The name is case sensitive so be sure to enter the exact name. By entering this into the game the map will be loaded and start the game.-->
 
 ## Map(s) for the game
