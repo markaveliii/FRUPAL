@@ -8,6 +8,7 @@ int movement(cell map[128][128], hero &p, int input)
   keypad(stdscr, TRUE);
   nodelay(stdscr, FALSE);
   cell dest;
+  
   switch(input)
   {
     //Move left
@@ -35,14 +36,14 @@ int movement(cell map[128][128], hero &p, int input)
           }
       }
       //Handles obstacles
-      if(dest.symbol == '!'){
-        p.energy -= dest.obsType->drain;
-        map[p.y_pos][p.x_pos-1].symbol = '/';
+      if(map[p.y_pos][p.x_pos].symbol == '!'){
+        p.energy -= map[p.y_pos][p.x_pos].obsType->drain;
+        map[p.y_pos][p.x_pos].obsType = NULL;
+        map[p.y_pos][p.x_pos].symbol = '/';
       }
       else{
         p.energy -= dest.drain;
       }
-
    
       //update player location to (y,x-1)
       --p.x_pos;
@@ -72,14 +73,14 @@ int movement(cell map[128][128], hero &p, int input)
           }
       }
       //Handles obstacles
-      if(dest.symbol == '!'){
-        p.energy -= dest.obsType->drain;
-        map[p.y_pos-1][p.x_pos].symbol = '/';
+      if(map[p.y_pos][p.x_pos].symbol == '!'){
+        p.energy -= map[p.y_pos][p.x_pos].obsType->drain;
+        map[p.y_pos][p.x_pos].obsType = NULL;
+        map[p.y_pos][p.x_pos].symbol = '/';
       }
       else{
         p.energy -= dest.drain;
       }
-
       //update player location to (y-1,x)
       --p.y_pos;
       break;
@@ -108,14 +109,14 @@ int movement(cell map[128][128], hero &p, int input)
           }
       }
       //Handles obstacles
-      if(dest.symbol == '!'){
-        p.energy -= dest.obsType->drain;
-        map[p.y_pos][p.x_pos+1].symbol = '/';
+      if(map[p.y_pos][p.x_pos].symbol == '!'){
+        p.energy -= map[p.y_pos][p.x_pos].obsType->drain;
+        map[p.y_pos][p.x_pos].obsType = NULL;
+        map[p.y_pos][p.x_pos].symbol = '/';
       }
       else{
         p.energy -= dest.drain;
       }
-
       //update player location to (y,x+1)
       ++p.x_pos;
       break;
@@ -144,14 +145,14 @@ int movement(cell map[128][128], hero &p, int input)
           }
       }
       //Handles obstacles
-      if(dest.symbol == '!'){
-        p.energy -= dest.obsType->drain;
-        map[p.y_pos+1][p.x_pos].symbol = '/';
+      if(map[p.y_pos][p.x_pos].symbol == '!'){
+        p.energy -= map[p.y_pos][p.x_pos].obsType->drain;
+        map[p.y_pos][p.x_pos].obsType = NULL;
+        map[p.y_pos][p.x_pos].symbol = '/';
       }
       else{
         p.energy -= dest.drain;
       }
-
       //update player location to (y+1,x)
       ++p.y_pos;
       break;
@@ -193,10 +194,3 @@ int movement(cell map[128][128], hero &p, int input)
   } 
   return 1;
 }
-
-/*int purchase(cell &dest)
-  {
-  int cost;
-  return cost;
-  }
- */
