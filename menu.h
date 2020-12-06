@@ -23,11 +23,11 @@ void display_EW(WINDOW * GAME_MENU, hero & player) {
 void display_movement(WINDOW * GAME_MENU) {
   //menu start
   int y = 2;
-  mvwprintw(GAME_MENU, y, 3, "1 to move left");
-  mvwprintw(GAME_MENU, ++y, 3, "2 to move up");
-  mvwprintw(GAME_MENU, ++y, 3, "3 to move right");
-  mvwprintw(GAME_MENU, ++y, 3, "4 to move down");
-  mvwprintw(GAME_MENU, ++y, 3, "5 to purchase");
+  mvwprintw(GAME_MENU, y, 3, "> A to move left");
+  mvwprintw(GAME_MENU, ++y, 3, "> W to move up");
+  mvwprintw(GAME_MENU, ++y, 3, "> D to move right");
+  mvwprintw(GAME_MENU, ++y, 3, "> S to move down");
+  mvwprintw(GAME_MENU, ++y, 3, "> p to purchase");
 }
 bool prompt(WINDOW * win) {
   bool ret = false;
@@ -183,6 +183,11 @@ void display_cell(WINDOW * GAME_MENU, cell c){
         wclrtoeol(GAME_MENU);
         wprintw(GAME_MENU, ">COST: %d<", BINOCULARS);
 
+        break;
+
+    case '/':
+        clearblock(GAME_MENU, y,6);
+        wrefresh(GAME_MENU);
         break;
   }
 }
