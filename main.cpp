@@ -197,6 +197,20 @@ int main(){
           }
           else purchase_failed();
         }
+        else if(map[p.y_pos][p.x_pos].symbol == 'B'){
+        if(p.whiffle >= BINOCULARS){
+          p.whiffle -= BINOCULARS;
+          ++p.sight;
+          map[p.y_pos][p.x_pos].symbol = '/';
+          mvprintw(12, (COLS - COLS/4) + 3, "Purchase success");
+          mvprintw(13, (COLS - COLS/4) + 3, "Press any key to continute.");
+          getch();
+          move(12, (COLS - COLS/4) + 3);
+          clrtoeol();
+          move(13, (COLS - COLS/4) + 3);
+          clrtoeol();
+          refresh();
+        }
         //Handle treasure
          else if(kingdom[player.y_pos][player.x_pos].symbol == '$') {
           player.whiffle += kingdom[player.y_pos][player.x_pos].treasureChest->whiffle;
