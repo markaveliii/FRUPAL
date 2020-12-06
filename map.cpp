@@ -8,17 +8,20 @@ using namespace std;
 #define WATER      4
 #define WALL       5
 #define GOAL       6
+#define HIGHLIGHT  7
 
-int mapgen(cell island[128][128], hero player)
+int mapgen(cell island[128][128], hero & player)
 {
     int lengthx;
     int lengthy;
-    int playerx = player.x_pos;
-    int playery = player.y_pos;
+    int i = 0;
+    int j = 0;
+    int playerx = player.y_pos;
+    int playery = player.x_pos;
     lengthx = COLS / 4;
     lengthx = lengthx * 3;
     lengthy = LINES;
-    
+
 
     start_color();
     init_pair(EMPTY, COLOR_BLACK, COLOR_BLACK);
@@ -28,7 +31,10 @@ int mapgen(cell island[128][128], hero player)
     init_pair(WATER, COLOR_BLACK, COLOR_BLUE);
     init_pair(WALL, COLOR_BLACK, COLOR_WHITE);
     init_pair(GOAL, COLOR_BLACK, COLOR_CYAN);
+    init_pair(HIGHLIGHT, COLOR_BLACK, COLOR_WHITE);
 
+
+    //voids out previous screen
     for(int x = 0; x < lengthx + 1; x++){
         for(int y = 0; y < lengthy + 1; y++){
             attron(COLOR_PAIR(EMPTY));
@@ -37,80 +43,104 @@ int mapgen(cell island[128][128], hero player)
         }
     }
 
-    for(int x = playerx - lengthx; x < playerx + lengthx + 1; x++){
-        for(int y = playery - lengthy; y < playery + lengthy +1; y++){
+    //colors in the map 
+    for(int x = playery - (lengthx/2); x < playery + (lengthx/2) + 1; x++){
+        for(int y = playerx - (lengthy/2); y < playerx + (lengthy/2) +1; y++){
             if(-1 < x && x < 129 && -1 < y && y < 129){
-                //if(island[x][y].visible){
-                    switch(island[x][y].tile){
+                if(island[y][x].visible){
+                    switch(island[y][x].tile){
                         case 'g':
                             attron(COLOR_PAIR(MEADOW));
-                            switch(island[x][y].symbol){
+                            switch(island[y][x].symbol){
                                 case '/':
-                                    mvaddch(y,x,' ');
+                                    mvaddch(j,i,' ');
                                     break;
                                 default:
-                                    mvaddch(y,x,island[x][y].symbol);
+                                    mvaddch(j,i,island[y][x].symbol);
                                     break;  
                             }
                             attroff(COLOR_PAIR(MEADOW));
                             break;
                         case 's':
                             attron(COLOR_PAIR(SWAMP));
-                            switch(island[x][y].symbol){
+                            switch(island[y][x].symbol){
                                 case '/':
-                                    mvaddch(y,x,' ');
+                                    mvaddch(j,i,' ');
                                     break;
                                 default:
-                                    mvaddch(y,x,island[x][y].symbol);
+                                    mvaddch(j,i,island[y][x].symbol);
                                     break;  
                             }
                             attroff(COLOR_PAIR(SWAMP));
                             break;
                         case 'b':
                             attron(COLOR_PAIR(WATER));
-                            switch(island[x][y].symbol){
+                            switch(island[y][x].symbol){
                                 case '/':
-                                    mvaddch(y,x,' ');
+                                    mvaddch(j,i,' ');
                                     break;
                                 default:
-                                    mvaddch(y,x,island[x][y].symbol);
+                                    mvaddch(j,i,island[y][x].symbol);
                                     break;  
                             } 
                             attroff(COLOR_PAIR(WATER));
                             break;
                         case 'w':
                             attron(COLOR_PAIR(WALL));
-                            switch(island[x][y].symbol){
+                            switch(island[y][x].symbol){
                                 case '/':
-                                    mvaddch(y,x,' ');
+                                    mvaddch(j,i,' ');
                                     break;
                                 default:
-                                    mvaddch(y,x,island[x][y].symbol);
+                                    mvaddch(j,i,island[y][x].symbol);
                                     break;  
                             } 
                             attroff(COLOR_PAIR(WALL));
                             break;
-                        case 'R':
+                        /*case 'R':
                             attron(COLOR_PAIR(GOAL));
-                            switch(island[x][y].symbol){
+                            switch(island[y][x].symbol){
                                 case '/':
-                                    mvaddch(y,x,' ');
+                                    mvaddch(j,i,' ');
                                     break;
                                 default:
-                                    mvaddch(y,x,island[x][y].symbol);
+                                    mvaddch(j,i,island[y][x].symbol);
                                     break;  
                             } 
                             attroff(COLOR_PAIR(GOAL));
-                            break;
+                            break; */
                     }
-                    if(x == playerx && y == playery){
+
+                    if(y == playerx && x == playery){
                         attron(COLOR_PAIR(PLAYER));
-                        mvaddch(y,x,'@'); 
+                        mvaddch(j,i,'@'); 
                         attroff(COLOR_PAIR(PLAYER));
                     }
-                //}
+                    if(island[y][x].curs == true){
+                        attron(A_BLINK);
+                        attron(COLOR_PAIR(HIGHLIGHT));
+                        if(island[y][x].symbol == '/')
+                            mvaddch(j, i, ' ');
+                        else
+                            mvaddch(j, i, island[y][x].symbol);
+                        attroff(COLOR_PAIR(HIGHLIGHT));
+                        attroff(A_BLINK);
+                    }
+
+                    if(island[y][x].symbol == 'R'){
+                        if(player.clue_counter <= 0){
+                            attron(COLOR_PAIR(GOAL));
+                            mvaddch(j,i,'$'); 
+                            attroff(COLOR_PAIR(GOAL));
+                        }
+                    }
+
+                }
             }
+            j++;
         }
+        j = 0;
+        i++;
     }
 
 
