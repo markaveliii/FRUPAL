@@ -11,8 +11,9 @@ tool::tool(const tool & source) {
   cost = source.cost;
 }
 
-void tool::display(WINDOW * win) {
+void tool::display(WINDOW * win, int y) {
   wprintw(win,"%s\t lvl: %d",name, power);
+   mvwprintw(win, y, 20, "lvl: %d", power);
 }
 
 int hero::purchase_tool(tool * a_tool) {
