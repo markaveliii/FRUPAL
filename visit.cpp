@@ -2,13 +2,12 @@
 
 using namespace std;
 
-int visitArea(cell island[128][128], hero& player, int sight){
+int visitArea(cell island[128][128], hero& player){
   // range of sight
-  int range = (((2 * sight) + 1) + 1) / 2;
-  
-  // player location
-  int curr_x = player.x_pos;
+  int range = (((2 * player.sight) + 1) + 1) / 2;
   int curr_y = player.y_pos;
+  int curr_x = player.x_pos;
+
   
   int x = 0, y = 0;
 
@@ -48,7 +47,7 @@ int visitArea(cell island[128][128], hero& player, int sight){
 
   // right bound
   x = 0; y = 0;
-  while((curr_x + x) <= 127 && range != range){
+  while((curr_x + x) <= 127 && x != range){
     island[curr_y][curr_x + x].visible = true;
     ++x;
   }
