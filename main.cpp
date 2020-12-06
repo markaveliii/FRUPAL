@@ -198,10 +198,21 @@ int main(){
           else purchase_failed();
         }
         //Handle treasure
-        else if(kingdom[player.y_pos][player.x_pos].symbol == '$') {
+         else if(kingdom[player.y_pos][player.x_pos].symbol == '$') {
           player.whiffle += kingdom[player.y_pos][player.x_pos].treasureChest->whiffle;
           kingdom[player.y_pos][player.x_pos].symbol = '/';
+
+          food * a_food = &kingdom[player.y_pos][player.x_pos].treasureChest->loot1[0];
+          tool * a_tool = &kingdom[player.y_pos][player.x_pos].treasureChest->loot2[0];
+          if(a_tool->name[0] != '\0') {
+          player.purchase_tool(a_tool);
+          }
+          if(a_tool->name[0] != '\0') {
+          player.purchase_food(a_food);
+          }
+          purchase_success();
         }
+        
         player.backpack.display(GW);
         wrefresh(GW);
         break;
