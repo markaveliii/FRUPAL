@@ -26,7 +26,7 @@ The player will have two different controls, one is to move the player throughou
 * Left: left-arrow key 
 * Right: right-arrow key 
 
-###Purchasing
+### Purchasing
 * Purchase: 'P' key
 
 ## Grovnick
