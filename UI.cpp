@@ -88,7 +88,7 @@ int movement(cell map[128][128], hero &p, int input)
       //Move Right
     case 'd':
     case 'D':
-      if(p.x_pos == COLS)
+      if(p.x_pos == 128)
         return 0;
       dest = map[p.y_pos][p.x_pos + 1];
        //handles if player exits ship
@@ -124,7 +124,7 @@ int movement(cell map[128][128], hero &p, int input)
       //Move down
     case 's':
     case 'S':
-      if(p.y_pos == LINES)
+      if(p.y_pos == 128)
         return 0;
       dest = map[p.y_pos + 1][p.x_pos];
        //handles if player exits ship

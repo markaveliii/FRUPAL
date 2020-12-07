@@ -114,6 +114,13 @@ void display_cell(WINDOW * GAME_MENU, cell c){
   wprintw(GAME_MENU, "--GROVNIC INFO--");
   wmove(GAME_MENU, ++y, x);
   wclrtoeol(GAME_MENU);
+  wmove(GAME_MENU, y+1, x);
+  wclrtoeol(GAME_MENU);
+  wmove(GAME_MENU, y+2, x);
+  wclrtoeol(GAME_MENU);
+  wmove(GAME_MENU, y+3, x);
+  wclrtoeol(GAME_MENU);
+ 
   switch(c.symbol)
   {
     case '$':
