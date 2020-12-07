@@ -161,6 +161,7 @@ int main(){
         wrefresh(GW);
           if(prompt(GW)) {
             if(player.purchase_ship()) {
+              clearblock(GW,LINES/5, 2);
               purchase_success();
               player.has_ship = true;
               kingdom[player.y_pos][player.x_pos].symbol = '/';
