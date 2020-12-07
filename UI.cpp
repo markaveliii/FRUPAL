@@ -41,6 +41,10 @@ int movement(cell map[128][128], hero &p, int input)
         map[p.y_pos][p.x_pos].obsType = NULL;
         map[p.y_pos][p.x_pos].symbol = '/';
       }
+      else if(p.has_ship){
+          --p.x_pos;
+          break;
+      }
       else{
         p.energy -= dest.drain;
       }
@@ -78,6 +82,10 @@ int movement(cell map[128][128], hero &p, int input)
         map[p.y_pos][p.x_pos].obsType = NULL;
         map[p.y_pos][p.x_pos].symbol = '/';
       }
+      else if(p.has_ship){
+          --p.y_pos;
+          break;
+      }
       else{
         p.energy -= dest.drain;
       }
@@ -114,6 +122,10 @@ int movement(cell map[128][128], hero &p, int input)
         map[p.y_pos][p.x_pos].obsType = NULL;
         map[p.y_pos][p.x_pos].symbol = '/';
       }
+      else if(p.has_ship){
+          ++p.x_pos;
+          break;
+      }
       else{
         p.energy -= dest.drain;
       }
@@ -149,6 +161,10 @@ int movement(cell map[128][128], hero &p, int input)
         p.energy -= map[p.y_pos][p.x_pos].obsType->drain;
         map[p.y_pos][p.x_pos].obsType = NULL;
         map[p.y_pos][p.x_pos].symbol = '/';
+      }
+      else if(p.has_ship){
+          ++p.y_pos;
+          break;
       }
       else{
         p.energy -= dest.drain;
