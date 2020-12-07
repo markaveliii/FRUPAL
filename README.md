@@ -26,6 +26,9 @@ The player will have two different controls, one is to move the player throughou
 * Left: left-arrow key 
 * Right: right-arrow key 
 
+###Purchasing
+* Purchase: 'P' key
+
 ## Grovnick
 Each tile represents a grovnick. These grovnicks contain the terrain type and may also have objects on them, such as an obstacle, tool, and food. The player can move into most of these grovnicks and interact with the object on them.
 
@@ -33,7 +36,7 @@ Each tile represents a grovnick. These grovnicks contain the terrain type and ma
 A grovnick contains a type of terrain that varies in cost of energy to walk on. Some terrain are impassable and some can only be moved on unless certain conditions are met.
 * Meadow: grassy, green tiles that require 1 energy to walk on
 * Swamp: magenta tiles that are more difficult to traverse through, requiring 2 energy
-* Water: a special blue tile that requires the player to be on a ship, which only costs 1 energy to move through
+* Water: a special blue tile that requires the player to be on a ship, which only costs no energy to move through
 * Wall: this grey tile is an impassable grovnick, so do not try passing through or lose the energy for the tile that the player is on.
 
 ### Object
