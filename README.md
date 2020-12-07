@@ -54,3 +54,6 @@ All main features that defines the playability of this game has been implemented
 
 ## Video Presentation
 https://media.pdx.edu/media/Group+13+Discussion/1_19wlax3t
+
+## 30-Second Trailer Video
+https://media.pdx.edu/media/t/1_g54vn3ex
