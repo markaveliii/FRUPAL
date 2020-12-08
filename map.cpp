@@ -97,25 +97,8 @@ int mapgen(cell island[128][128], hero & player)
                             } 
                             attroff(COLOR_PAIR(WALL));
                             break;
-                        /*case 'R':
-                            attron(COLOR_PAIR(GOAL));
-                            switch(island[y][x].symbol){
-                                case '/':
-                                    mvaddch(j,i,' ');
-                                    break;
-                                default:
-                                    mvaddch(j,i,island[y][x].symbol);
-                                    break;  
-                            } 
-                            attroff(COLOR_PAIR(GOAL));
-                            break; */
                     }
 
-                    if(y == playerx && x == playery){
-                        attron(COLOR_PAIR(PLAYER));
-                        mvaddch(j,i,'@'); 
-                        attroff(COLOR_PAIR(PLAYER));
-                    }
                     if(island[y][x].curs == true){
                         attron(A_BLINK);
                         attron(COLOR_PAIR(HIGHLIGHT));
@@ -126,15 +109,30 @@ int mapgen(cell island[128][128], hero & player)
                         attroff(COLOR_PAIR(HIGHLIGHT));
                         attroff(A_BLINK);
                     }
-
                     if(island[y][x].symbol == 'R'){
                         if(player.clue_counter <= 0){
                             attron(COLOR_PAIR(GOAL));
                             mvaddch(j,i,'$'); 
                             attroff(COLOR_PAIR(GOAL));
                         }
+                        else{
+                            if(island[y][x].tile == 'g'){
+                              attron(COLOR_PAIR(MEADOW));
+                              mvaddch(j,i,' ');
+                              attroff(COLOR_PAIR(MEADOW));
+                            }
+                            else if(island[y][x].tile == 's'){
+                              attron(COLOR_PAIR(SWAMP));
+                              mvaddch(j,i,' ');
+                              attroff(COLOR_PAIR(SWAMP));
+                            }
+                        }
                     }
-
+                    if(y == playerx && x == playery){
+                        attron(COLOR_PAIR(PLAYER));
+                        mvaddch(j,i,'@'); 
+                        attroff(COLOR_PAIR(PLAYER));
+                    }
                 }
             }
             j++;
@@ -142,11 +140,6 @@ int mapgen(cell island[128][128], hero & player)
         j = 0;
         i++;
     }
-
-
-
-
-
 
     refresh();
     return 1;

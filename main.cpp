@@ -5,6 +5,8 @@
 #include "menu.h"
 #include "UI.h"
 #include "visit.h"
+#include "mode.h"
+#include "randmap.h"
 
 using namespace std;
 #define EMPTY      0
@@ -16,6 +18,7 @@ using namespace std;
 #define GOAL       6
 
 int main(){
+  srand(time(NULL));
   bool end = false; // flag to turn game off
   int input;        // user input
   int win = 0;      // win check
@@ -35,18 +38,21 @@ int main(){
     exit(1);
   }
 
-
-  if(mapExport("map1.txt", kingdom, obsList, foodList, toolList, chestList, player) != 0){
-    cout << "\nFailed to load map\n";
-    exit(1);
+  int mode = mode_select();
+  if(mode == 1){
+    if(mapExport("map1.txt", kingdom, obsList, foodList, toolList, chestList, player) != 0){
+      cout << "\nFailed to load map\n";
+      exit(1);
+    }
   }
-
-  /*
-     cout << COLS;
-     cout << "\n";
-     cout << LINES;
-     cout << "\n";
-   */
+  else if(mode == 2){
+    if(mapRandom(kingdom, obsList, foodList, toolList, chestList, player) != 0){
+      cout << "\nFailed to generate map\n";
+      exit(1);
+    }
+  }
+  else if(mode == 3)
+    end = true;
 
   start_color();
   init_pair(EMPTY, COLOR_GREEN, COLOR_GREEN);
@@ -56,7 +62,6 @@ int main(){
   init_pair(WATER, COLOR_BLACK, COLOR_BLUE);
   init_pair(WALL, COLOR_BLACK, COLOR_WHITE);
   init_pair(GOAL, COLOR_BLACK, COLOR_CYAN);
-  //WINDOW * GAME_MENU = create_game_menu();
   visitArea(kingdom, player);
   mapgen(kingdom, player);
   WINDOW *GW = create_game_menu();
@@ -67,6 +72,7 @@ int main(){
 
   keypad(stdscr, true);
   noecho();
+
   // start game
   while(!end){
     switch((input = getch())){
@@ -83,8 +89,6 @@ int main(){
       case 's':
       case 'D':
       case 'd':
-      //case 'r':
-      //case 'R':
         movement(kingdom, player, input);
         visitArea(kingdom, player);
         mapgen(kingdom, player);
@@ -96,21 +100,21 @@ int main(){
           wrefresh(GW);
           --player.clue_counter;
           kingdom[player.y_pos][player.x_pos].symbol = '/';
-          wmove(GW, LINES/5 + 4, 2);
+          wmove(GW, 13, 2);
           wclrtoeol(GW);
-          mvwprintw(GW, LINES/5 + 4, 2, kingdom[player.y_pos][player.x_pos].clue);
-          wmove(GW, LINES/5 + 5, 2);
+          mvwprintw(GW, 13, 2, kingdom[player.y_pos][player.x_pos].clue);
+          wmove(GW, 14, 2);
           wclrtoeol(GW);
-          mvwprintw(GW, LINES/5 + 5, 2, "Press any key to continue");
+          mvwprintw(GW, 14, 2, "Press any key to continue");
           wrefresh(GW);
           getch();
-          wmove(GW, LINES/5 + 4, 2);
+          wmove(GW, 13, 2);
           wclrtoeol(GW);
-          wmove(GW, LINES/5 + 5, 2);
+          wmove(GW, 14, 2);
           wclrtoeol(GW);
           wrefresh(GW);
         }
-        
+
         //handles if player lands on an obstacle
         if(kingdom[player.y_pos][player.x_pos].obsType) {
 
@@ -138,8 +142,8 @@ int main(){
                   num = 'q'-49;
                 }
                 else {
-                clearblock(GW, LINES/5+4, 1);
-                mvwprintw(GW, LINES/5 + 4, 2, "You did not pick the right weapon try again");
+                  clearblock(GW, LINES/5+4, 1);
+                  mvwprintw(GW, LINES/5 + 4, 2, "You did not pick the right weapon try again");
                 }
               }
               else {
@@ -154,11 +158,11 @@ int main(){
 
         //handles if player encounters a ship
         if(kingdom[player.y_pos][player.x_pos].symbol == 'S') {
-        player.has_ship = false;
-        mvwprintw(GW, LINES/5, 2, "Hey there dandy. Would you like");
-        mvwprintw(GW, LINES/5 + 1, 2, "to buy my ship for 50 whiffles? y/n");
-        display_EW(GW, player);
-        wrefresh(GW);
+          player.has_ship = false;
+          mvwprintw(GW, LINES/5, 2, "Hey there dandy. Would you like");
+          mvwprintw(GW, LINES/5 + 1, 2, "to buy my ship for 50 whiffles? y/n");
+          display_EW(GW, player);
+          wrefresh(GW);
           if(prompt(GW)) {
             if(player.purchase_ship()) {
               clearblock(GW,LINES/5, 2);
@@ -182,11 +186,11 @@ int main(){
 
       case 'p':
       case 'P': 
-       if(kingdom[player.y_pos][player.x_pos].toolDevice) {
+        if(kingdom[player.y_pos][player.x_pos].toolDevice) {
           if(player.purchase_tool(kingdom[player.y_pos][player.x_pos].toolDevice)) {
-          purchase_success();
-          kingdom[player.y_pos][player.x_pos].toolDevice = NULL;
-          kingdom[player.y_pos][player.x_pos].symbol = '/';
+            purchase_success();
+            kingdom[player.y_pos][player.x_pos].toolDevice = NULL;
+            kingdom[player.y_pos][player.x_pos].symbol = '/';
           }
           else purchase_failed();
         }
@@ -207,21 +211,21 @@ int main(){
           }else purchase_failed();
         }
         //Handle treasure
-         else if(kingdom[player.y_pos][player.x_pos].symbol == '$') {
+        else if(kingdom[player.y_pos][player.x_pos].symbol == '$') {
           player.whiffle += kingdom[player.y_pos][player.x_pos].treasureChest->whiffle;
           kingdom[player.y_pos][player.x_pos].symbol = '/';
 
           food * a_food = &kingdom[player.y_pos][player.x_pos].treasureChest->loot1[0];
           tool * a_tool = &kingdom[player.y_pos][player.x_pos].treasureChest->loot2[0];
           if(a_tool->name[0] != '\0') {
-          player.purchase_tool(a_tool);
+            player.purchase_tool(a_tool);
           }
           if(a_tool->name[0] != '\0') {
-          player.purchase_food(a_food);
+            player.purchase_food(a_food);
           }
           purchase_success();
         }
-        
+
         player.backpack.display(GW);
         wrefresh(GW);
         break;
@@ -237,9 +241,9 @@ int main(){
 
     mapgen(kingdom,player);
     display_EW(GW, player);
-    display_cell(GW, kingdom[curs.y_pos][curs.x_pos]);
+    display_cell(GW, kingdom[curs.y_pos][curs.x_pos], player.clue_counter);
     wrefresh(GW);
-    if(kingdom[player.y_pos][player.x_pos].symbol == 'R'){
+    if(kingdom[player.y_pos][player.x_pos].symbol == 'R' && player.clue_counter <= 0){
       end = true;
       win = 1;
     }

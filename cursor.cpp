@@ -43,11 +43,5 @@ int move_cursor(WINDOW * GAME, WINDOW * GAME_MENU, cell map[128][128], cursor &c
 void display_cursor(WINDOW * win, cursor curs, cell t)
 {
     curs_set(2);
-/*    start_color();
-    init_pair(9, COLOR_BLACK, COLOR_WHITE);
-    attron(COLOR_PAIR(9));
-    mvprintw(curs.y_pos-LINES, curs.x_pos-COLS, " ");
-    attroff(COLOR_PAIR(9));
-*/
     refresh();
 }

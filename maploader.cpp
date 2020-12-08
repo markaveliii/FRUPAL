@@ -11,9 +11,6 @@ static inline int loadTile(ifstream& file, cell island[128][128]){
       island[i][j].visible = false;
       island[i][j].clue = NULL;
 
-      // assume there are no objects
-      island[i][j].exist = false;
-
       // translate grovnick tile info
       switch(island[i][j].tile){
         case 'g':
@@ -23,7 +20,7 @@ static inline int loadTile(ifstream& file, cell island[128][128]){
           island[i][j].drain = 2;
           break;
         case 'b':
-          island[i][j].drain = 1;
+          island[i][j].drain = 0;
           break;
         case 'w':
           island[i][j].drain = 0;
@@ -44,25 +41,21 @@ static inline int* loadSymbol(ifstream& file, cell island[128][128], hero& playe
       file >> island[i][j].symbol;
       switch(island[i][j].symbol){
         case '!':
-          island[i][j].exist = true;
           objLocation[0][x] = i;
           objLocation[1][x] = j;
           ++x; 
           break;
         case 'F':
-          island[i][j].exist = true;
           objLocation[0][x] = i;
           objLocation[1][x] = j;
           ++x; 
           break;
         case 'T':
-          island[i][j].exist = true;
           objLocation[0][x] = i;
           objLocation[1][x] = j;
           ++x; 
           break;
         case '$':
-          island[i][j].exist = true;
           objLocation[0][x] = i;
           objLocation[1][x] = j;
           ++x; 
@@ -455,6 +448,7 @@ int mapExport(const char* map, cell island[128][128], obstacle obsList[100], foo
 
   // place any clues on map
   for(int i = 0; i < coords[1]; ++i){
+    ++player.clue_counter;
     int clueY = clueLocation[0][i];
     int clueX = clueLocation[1][i];
 
