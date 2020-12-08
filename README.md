@@ -2,11 +2,15 @@
 Frupal is a text-based adventure game that takes place on a 128 x 128 grovnick (tile) island, the Kingdom of Frupal. The player spawns in this island and is given some whiffle. The player's objective is to find the Royal Diamond in order to win the game. The player must find all of the clues in order to reveal the location of the Royal Diamond. The catch is that the player has a limited energy supply for each action made. There are obstacles that gets in the way of the player by require more energy to pass through unless they bought a tool for it. If the player spends all of their energy, they lose. Their energy can be replenished by purchasing food.
 
 ## Starting the Game
-In order to start the game, the player must first compile the game. Simply enter "make" without quotation marks into the command line. Then enter "./frupal" without quotation marks once the compilation finishes. Minimum terminal size is 170x4.
-<!--To load in a map of the kingdom. The game will prompt the user to enter the name of the map file. It's recommended to load the file called "map1.txt" (without quotation marks). The name is case sensitive so be sure to enter the exact name. By entering this into the game the map will be loaded and start the game.-->
+In order to start the game, the player must first compile the game. Simply enter "make" without quotation marks into the command line. Then enter "./frupal" without quotation marks once the compilation finishes. Minimum terminal size is 170x4. The player is introduced to the mode selection menu. The player can select either Default mode or Random mode with the controls described on the menu. Selecting either of the modes will start the player's adventure.
+
+## Modes
+* Default: loads the demonstration map to showcase the game's features and functionality
+* Random: creates a random map of the Kingdom of Frupal in ruins, so no water is found
 
 ## Map(s) for the game
 * map1.txt: demonstration map
+* random.txt: can only be used in Random mode
 
 ## Exiting the Game
 If the player decides to stop the game, pressing the "End" key located on the right-side of the computer will end the game. Be warned that progress is not saved and the map will load its default settingsagain.
@@ -54,6 +58,7 @@ Some grovnick may have objects on them. They're represented by a character symbo
 All main features that defines the playability of this game has been implemented. This includes loading and display the map, player movement and interactions with objects, player menu, and a win-loss condition.
 
 ## Not finished
+N/A
 
 ## Video Presentation
 https://media.pdx.edu/media/Group+13+Discussion/1_19wlax3t
